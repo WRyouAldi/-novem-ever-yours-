@@ -10,10 +10,11 @@ const photos = Array.from({ length: 21 }, (_, i) => ({
   alt: `Kenangan kita nomor ${i + 1}`,
   number: String(i + 1).padStart(2, "0")
 }));
-const videos = Array.from({ length: 12 }, (_, i) => ({
-  src: `assets/videos/clips/clip-${String(i + 1).padStart(2, "0")}.mp4`,
-  poster: `assets/videos/posters/clip-${String(i + 1).padStart(2, "0")}.webp`,
-  number: String(i + 1).padStart(2, "0")
+const videoIds = [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12];
+const videos = videoIds.map((id, index) => ({
+  src: `assets/videos/clips/clip-${String(id).padStart(2, "0")}.mp4`,
+  poster: `assets/videos/posters/clip-${String(id).padStart(2, "0")}.webp`,
+  number: String(index + 1).padStart(2, "0")
 }));
 const ease = [0.22, 1, 0.36, 1];
 
