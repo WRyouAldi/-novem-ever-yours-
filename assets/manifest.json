@@ -1,0 +1,172 @@
+{
+  "source_archive": "MyWinter2.zip",
+  "totals": {
+    "unique_photos": 22,
+    "unique_videos": 12,
+    "exact_duplicate_pairs_removed": 2
+  },
+  "duplicate_pairs": [
+    {
+      "type": "photo",
+      "kept": "IMG-20261105-WA0006_1.jpg",
+      "excluded": ".trashed-1798095872-IMG-20261105-WA0006.jpg"
+    },
+    {
+      "type": "video",
+      "kept": "memory_06.mp4",
+      "excluded": "VID-20260521-WA0005.mp4"
+    }
+  ],
+  "hero": {
+    "source": "memory_02.jpg",
+    "path": "assets/photos/cover.webp"
+  },
+  "photos": [
+    {
+      "source": "memory_03.jpg",
+      "path": "assets/photos/gallery/photo-01.webp"
+    },
+    {
+      "source": "memory_04.jpg",
+      "path": "assets/photos/gallery/photo-02.webp"
+    },
+    {
+      "source": "memory_05.jpg",
+      "path": "assets/photos/gallery/photo-03.webp"
+    },
+    {
+      "source": "memory_06.jpg",
+      "path": "assets/photos/gallery/photo-04.webp"
+    },
+    {
+      "source": "memory_07.jpg",
+      "path": "assets/photos/gallery/photo-05.webp"
+    },
+    {
+      "source": "memory_08.jpg",
+      "path": "assets/photos/gallery/photo-06.webp"
+    },
+    {
+      "source": "memory_09.jpg",
+      "path": "assets/photos/gallery/photo-07.webp"
+    },
+    {
+      "source": "memory_10.jpg",
+      "path": "assets/photos/gallery/photo-08.webp"
+    },
+    {
+      "source": "memory_12.png",
+      "path": "assets/photos/gallery/photo-09.webp"
+    },
+    {
+      "source": "IMG-20261105-WA0006_1.jpg",
+      "path": "assets/photos/gallery/photo-10.webp"
+    },
+    {
+      "source": "IMG-20251218-WA0015.jpg",
+      "path": "assets/photos/gallery/photo-11.webp"
+    },
+    {
+      "source": "IMG-20260820-WA0003.jpg",
+      "path": "assets/photos/gallery/photo-12.webp"
+    },
+    {
+      "source": "IMG-20260908-WA0003(1).jpg",
+      "path": "assets/photos/gallery/photo-13.webp"
+    },
+    {
+      "source": "IMG-20260930-WA0005(1).jpg",
+      "path": "assets/photos/gallery/photo-14.webp"
+    },
+    {
+      "source": "IMG-20261008-WA0001.jpg",
+      "path": "assets/photos/gallery/photo-15.webp"
+    },
+    {
+      "source": "IMG-20261119-WA0020.jpg",
+      "path": "assets/photos/gallery/photo-16.webp"
+    },
+    {
+      "source": "IMG-20261119-WA0021.jpg",
+      "path": "assets/photos/gallery/photo-17.webp"
+    },
+    {
+      "source": "IMG-20261119-WA0022.jpg",
+      "path": "assets/photos/gallery/photo-18.webp"
+    },
+    {
+      "source": "IMG-20261119-WA0023.jpg",
+      "path": "assets/photos/gallery/photo-19.webp"
+    },
+    {
+      "source": "IMG-20261119-WA0024.jpg",
+      "path": "assets/photos/gallery/photo-20.webp"
+    },
+    {
+      "source": "IMG-20261122-WA0001.jpg",
+      "path": "assets/photos/gallery/photo-21.webp"
+    }
+  ],
+  "videos": [
+    {
+      "source": "VID-20251229-WA0049.mp4",
+      "path": "assets/videos/clips/clip-01.mp4",
+      "poster": "assets/videos/posters/clip-01.webp"
+    },
+    {
+      "source": "VID-20260114-WA0023.mp4",
+      "path": "assets/videos/clips/clip-02.mp4",
+      "poster": "assets/videos/posters/clip-02.webp"
+    },
+    {
+      "source": "VID-20260128-WA0036.mp4",
+      "path": "assets/videos/clips/clip-03.mp4",
+      "poster": "assets/videos/posters/clip-03.webp"
+    },
+    {
+      "source": "VID-20260216-WA0029.mp4",
+      "path": "assets/videos/clips/clip-04.mp4",
+      "poster": "assets/videos/posters/clip-04.webp"
+    },
+    {
+      "source": "VID-20260421-WA0048.mp4",
+      "path": "assets/videos/clips/clip-05.mp4",
+      "poster": "assets/videos/posters/clip-05.webp"
+    },
+    {
+      "source": "VID-20261008-WA0003(1).mp4",
+      "path": "assets/videos/clips/clip-06.mp4",
+      "poster": "assets/videos/posters/clip-06.webp"
+    },
+    {
+      "source": "memory_02.mp4",
+      "path": "assets/videos/clips/clip-07.mp4",
+      "poster": "assets/videos/posters/clip-07.webp"
+    },
+    {
+      "source": "memory_04.mp4",
+      "path": "assets/videos/clips/clip-08.mp4",
+      "poster": "assets/videos/posters/clip-08.webp"
+    },
+    {
+      "source": "memory_06.mp4",
+      "path": "assets/videos/clips/clip-09.mp4",
+      "poster": "assets/videos/posters/clip-09.webp"
+    },
+    {
+      "source": "memory_07.mp4",
+      "path": "assets/videos/clips/clip-10.mp4",
+      "poster": "assets/videos/posters/clip-10.webp"
+    },
+    {
+      "source": "memory_09.mp4",
+      "path": "assets/videos/clips/clip-11.mp4",
+      "poster": "assets/videos/posters/clip-11.webp"
+    },
+    {
+      "source": "memory_10.mp4",
+      "path": "assets/videos/clips/clip-12.mp4",
+      "poster": "assets/videos/posters/clip-12.webp"
+    }
+  ]
+}
