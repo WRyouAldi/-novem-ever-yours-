@@ -1,6 +1,12 @@
 name: Android APK validation
 
 on:
+  push:
+    branches:
+      - feature/android-online-app
+    paths:
+      - "mobile/**"
+      - ".github/workflows/android-app.yml"
   pull_request:
     paths:
       - "mobile/**"
