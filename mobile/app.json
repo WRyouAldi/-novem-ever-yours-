@@ -8,11 +8,6 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "icon": "./assets/generated/icon.png",
-    "splash": {
-      "image": "./assets/generated/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#F7F0EA"
-    },
     "android": {
       "package": "com.novem.ever.yours",
       "versionCode": 1,
@@ -27,12 +22,15 @@
       }
     },
     "plugins": [
-      ["expo-splash-screen", {
-        "image": "./assets/generated/splash.png",
-        "imageWidth": 240,
-        "resizeMode": "contain",
-        "backgroundColor": "#F7F0EA"
-      }]
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/generated/splash.png",
+          "imageWidth": 240,
+          "resizeMode": "contain",
+          "backgroundColor": "#F7F0EA"
+        }
+      ]
     ],
     "extra": {
       "websiteUrl": "https://wryoualdi.github.io/-novem-ever-yours-/"
