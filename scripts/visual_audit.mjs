@@ -1,7 +1,7 @@
 import { chromium } from "playwright";
 import { mkdir } from "node:fs/promises";
 
-const baseURL = "http://127.0.0.1:4173";
+const baseURL = "http://127.0.0.1:4173"; // local Vite production preview
 const output = "artifacts";
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ headless: true });
