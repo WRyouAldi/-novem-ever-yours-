@@ -20,7 +20,7 @@ function MotionExperience() {
           delay: index === 0 ? 0.12 : 0,
           ease: [0.22, 1, 0.36, 1]
         });
-      }, { amount: 0.16, once: true }));
+      }, { amount: "some", once: true }));
     });
 
     const gallery = document.querySelector(".memory-grid");
@@ -32,7 +32,7 @@ function MotionExperience() {
           duration: 0.62,
           ease: [0.22, 1, 0.36, 1]
         });
-      }, { amount: 0.08, once: true }));
+      }, { amount: "some", once: true }));
     }
 
     document.querySelectorAll(".film-card").forEach((card) => {
