@@ -43,7 +43,7 @@ function PhotoGallery() {
   }, [active]);
   return <>
     <div className="photo-grid">
-      {photos.map((photo, i) => <motion.button key={photo.src} type="button" className={`photo-tile photo-tile-${i % 7}`} onClick={() => setActive(i)} aria-label={`Buka foto ${photo.number}`} whileHover={{ y: -5 }} whileTap={{ scale: .985 }}>
+      {photos.slice(0, showAll ? photos.length : 6).map((photo, i) => <motion.button key={photo.src} type="button" className={`photo-tile photo-tile-${i % 7}`} onClick={() => setActive(i)} aria-label={`Buka foto ${photo.number}`} whileHover={{ y: -5 }} whileTap={{ scale: .985 }}>
         <img src={photo.src} alt={photo.alt} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
         <span className="photo-index">{photo.number}</span>
         <span className="photo-open">↗</span>
