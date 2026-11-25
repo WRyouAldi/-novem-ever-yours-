@@ -32,7 +32,8 @@ async function audit(name, viewport) {
   if (metrics.galleryCount !== 6) errors.push("Expected six-photo initial gallery preview.");
 
   if (name === "mobile") {
-    await page.getByRole("button", { name: "Buka navigasi" }).click();
+    await page.locator(".menu-toggle").waitFor({ state: "visible" });
+    await page.locator(".menu-toggle").click();
     if (!(await page.getByRole("navigation", { name: "Navigasi utama" }).isVisible())) errors.push("Mobile navigation did not open.");
   }
   await page.screenshot({ path: `${output}/${name}.png`, fullPage: true });
