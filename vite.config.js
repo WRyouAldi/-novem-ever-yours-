@@ -3,7 +3,9 @@ import { cpSync, existsSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 
 export default defineConfig({
-  base: "/-novem-ever-yours-/",
+  // Relative URLs work both on the GitHub Pages project subpath and in the
+  // root-mounted local production preview used by the visual audit.
+  base: "./",
   publicDir: false,
   build: {
     outDir: "dist",
