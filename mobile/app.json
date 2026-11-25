@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Novem-ever Yours",
+    "slug": "novem-ever-yours",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "novemeveryours",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "icon": "./assets/generated/icon.png",
+    "splash": {
+      "image": "./assets/generated/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F7F0EA"
+    },
+    "android": {
+      "package": "com.novem.ever.yours",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/generated/adaptive-icon.png",
+        "backgroundColor": "#F7F0EA"
+      },
+      "edgeToEdgeEnabled": true,
+      "navigationBar": {
+        "backgroundColor": "#F7F0EA",
+        "barStyle": "dark-content"
+      }
+    },
+    "plugins": [
+      ["expo-splash-screen", {
+        "image": "./assets/generated/splash.png",
+        "imageWidth": 240,
+        "resizeMode": "contain",
+        "backgroundColor": "#F7F0EA"
+      }]
+    ],
+    "extra": {
+      "websiteUrl": "https://wryoualdi.github.io/-novem-ever-yours-/"
+    }
+  }
+}
