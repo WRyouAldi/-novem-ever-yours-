@@ -3,7 +3,7 @@
 Android companion app for the live anniversary website.
 
 - Website source of truth: https://wryoualdi.github.io/-novem-ever-yours-/
-- Runtime: Expo SDK 58 + React Native WebView
+- Runtime: Expo SDK 57 + React Native WebView
 - Network model: online; gallery, videos and letter load from the live website.
 - App identity: winter editorial romance — ivory, muted winter blue and burgundy.
 
