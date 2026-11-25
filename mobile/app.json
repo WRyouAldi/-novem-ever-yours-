@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "scheme": "novemeveryours",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "icon": "./assets/generated/icon.png",
     "android": {
       "package": "com.novem.ever.yours",
