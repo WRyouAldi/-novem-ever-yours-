@@ -7,6 +7,27 @@ await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const results = [];
 
+
+// Exercise real scroll reveals before capturing the full-page previews.
+async function revealEverySection(page) {
+  const total = await page.evaluate(() => document.documentElement.scrollHeight);
+  for (let y = 0; y < total; y += Math.max(360, Math.floor(innerHeight * 0.72))) {
+    await page.evaluate(position => window.scrollTo(0, position), y);
+    await page.waitForTimeout(180);
+  }
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(950);
+  const report = await page.locator(".section-heading, .timeline-item, .video-card, .photo-tile").evaluateAll(nodes => nodes.map(node => ({
+    element: node.className || node.tagName.toLowerCase(),
+    opacity: Number(getComputedStyle(node).opacity),
+    rect: node.getBoundingClientRect().height
+  })));
+  const hidden = report.filter(item => item.rect > 0 && item.opacity < 0.95);
+  if (hidden.length) throw new Error("Scroll reveal elements remain hidden: " + JSON.stringify(hidden.slice(0, 8)));
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(250);
+}
+
 async function audit(name, viewport) {
   const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
   const errors = [];
@@ -30,6 +51,7 @@ async function audit(name, viewport) {
   if (metrics.brokenImages.length) errors.push("Broken images: " + metrics.brokenImages.join(", "));
   if (metrics.videoCount !== 12 || metrics.posterCount !== 12) errors.push("Expected 12 video elements and posters.");
   if (metrics.galleryCount !== 6) errors.push("Expected six-photo initial gallery preview.");
+  await revealEverySection(page);
 
   if (name === "mobile") {
     await page.locator(".menu-toggle").waitFor({ state: "visible" });
