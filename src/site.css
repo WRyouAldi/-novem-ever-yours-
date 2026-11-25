@@ -28,3 +28,35 @@
   .video-frame video{aspect-ratio:4/5}
 }
 @media(max-width:380px){.photo-grid{grid-auto-rows:140px;gap:8px}}
+
+/* Mobile compact rhythm: keep the editorial mood without oversized dead space. */
+@media(max-width:760px){
+  .hero{
+    height:min(680px,78svh);
+    min-height:590px;
+    max-height:700px;
+    padding-bottom:112px;
+  }
+  .scroll-cue{bottom:40px}
+  .journey{padding:48px 0 36px}
+  .timeline{margin-top:28px}
+  .gallery-section{padding:16px 0 38px}
+  .gallery-section .section-heading{margin-bottom:22px}
+  .video-section{padding:14px 0 44px}
+  .video-section .section-heading{margin-bottom:22px}
+  .video-grid{row-gap:16px}
+  .letter-section{padding:58px 0 62px}
+  .letter-inner{gap:28px}
+  .letter-copy h2{margin:10px 0 17px}
+  .letter-copy p{line-height:1.78;margin:0 0 12px}
+  .letter-photo{width:min(220px,68%)}
+  .closing-section{padding:36px 15px 42px}
+}
+@media(max-width:380px){
+  .hero{height:min(650px,76svh);min-height:560px}
+  .journey{padding:42px 0 32px}
+  .gallery-section{padding:12px 0 32px}
+  .video-section{padding:10px 0 38px}
+  .letter-section{padding:50px 0 54px}
+  .letter-inner{gap:24px}
+}
