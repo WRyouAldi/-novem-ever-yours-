@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Dialog } from "@base-ui/react/dialog";
 import "./site.css";
+import MusicPlayer from "./MusicPlayer.jsx";
 
 const photos = Array.from({ length: 21 }, (_, i) => ({
   src: `assets/photos/gallery/photo-${String(i + 1).padStart(2, "0")}.webp`,
@@ -181,6 +182,7 @@ function App() {
       </section>
     </main>
     <footer className="site-footer"><Brand light/><span>Forever & Always ♡</span><span className="footer-note">MADE WITH ALL MY LOVE</span></footer>
+    <MusicPlayer />
   </div>;
 }
 
