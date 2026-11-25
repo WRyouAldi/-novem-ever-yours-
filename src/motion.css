@@ -1,9 +1,13 @@
 /* Motion owns reveal timing; layout and typography remain in the site's original CSS. */
-.motion-ready [data-motion-reveal] {
+.motion-ready [data-motion-reveal],
+.motion-ready main > section:not(.hero),
+.motion-ready .footer {
   opacity: 0;
   transform: translateY(22px);
 }
-.motion-ready [data-motion-reveal].is-visible {
+.motion-ready [data-motion-reveal].is-visible,
+.motion-ready main > section:not(.hero).is-visible,
+.motion-ready .footer.is-visible {
   opacity: 1;
   transform: none;
 }
