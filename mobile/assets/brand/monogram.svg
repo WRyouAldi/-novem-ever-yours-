@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs><linearGradient id="paper" x2="1" y2="1"><stop stop-color="#FFFAF5"/><stop offset="1" stop-color="#F0E4DE"/></linearGradient><linearGradient id="wine" x2="0" y2="1"><stop stop-color="#8D4354"/><stop offset="1" stop-color="#632638"/></linearGradient></defs>
+<rect width="1024" height="1024" rx="210" fill="url(#paper)"/>
+<circle cx="512" cy="512" r="420" fill="none" stroke="#7D8B9A" stroke-width="9"/>
+<circle cx="512" cy="512" r="398" fill="none" stroke="#D8C9C2" stroke-width="2"/>
+<text x="512" y="715" text-anchor="middle" font-family="Georgia,serif" font-size="650" font-style="italic" fill="url(#wine)">N</text>
+<g fill="none" stroke="#7D8B9A" stroke-width="9" stroke-linecap="round"><path d="M260 700 Q340 600 405 630 Q450 650 482 600"/><path d="M270 710 Q210 635 220 570"/><path d="M300 675 Q260 625 275 575"/></g>
+<g fill="#A65A68"><path d="M275 570c-46-55-4-105 37-87 37-50 95-10 66 31 40 41-7 89-49 62-30 35-72 26-54-6z"/><circle cx="327" cy="558" r="16" fill="#E9C4B9"/></g>
+<g fill="#FDFBF7" stroke="#B9A8A1" stroke-width="3"><circle cx="235" cy="475" r="18"/><circle cx="256" cy="458" r="15"/><circle cx="274" cy="480" r="18"/><circle cx="249" cy="496" r="16"/></g>
+<g fill="#718092"><path d="M310 480q-55-70-93-18 48 4 93 18z"/><path d="M354 450q-3-72 54-78-13 46-54 78z"/><path d="M382 660q-20 72-76 55 33-35 76-55z"/></g>
+<g stroke="#713044" stroke-width="9" stroke-linecap="round"><path d="M760 270v110M705 325h110M722 287l76 76M798 287l-76 76"/></g><path d="M825 430l12 24 25 12-25 12-12 25-12-25-25-12 25-12z" fill="#713044"/>
+</svg>
