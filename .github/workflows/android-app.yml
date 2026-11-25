@@ -44,10 +44,13 @@ jobs:
           packages: "platform-tools"
 
       - name: Install Android SDK packages
-        run: sdkmanager --channel=3 --install "platforms;android-37" "build-tools;37.0.0"
+        run: sdkmanager --install "platforms;android-36" "build-tools;36.0.0"
 
       - name: Install dependencies
         run: npm install
+
+      - name: Align Expo dependencies
+        run: npx expo install --fix
 
       - name: Validate Expo dependencies
         run: npx expo install --check
