@@ -1,31 +1,50 @@
-/* Motion owns reveal timing; layout and typography remain in the site's original CSS. */
-.motion-ready [data-motion-reveal],
+/* Motion-only presentation layer. Existing layout, typography and media remain intact. */
+.motion-ready .hero .eyebrow,
+.motion-ready .hero h1,
+.motion-ready .hero .hero-copy,
+.motion-ready .hero .hero-date,
+.motion-ready .hero .button,
+.motion-ready .hero-art {
+  opacity: 0;
+}
 .motion-ready main > section:not(.hero),
 .motion-ready .footer {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(34px);
 }
-.motion-ready [data-motion-reveal].is-visible,
-.motion-ready main > section:not(.hero).is-visible,
-.motion-ready .footer.is-visible {
-  opacity: 1;
-  transform: none;
-}
-.motion-ready .memory-grid figure {
+.motion-ready .memory-grid figure,
+.motion-ready .film-card,
+.motion-ready .little-item,
+.motion-ready .moment {
   opacity: 0;
+}
+.motion-ready .hero-art {
+  will-change: transform, opacity;
+}
+.motion-ready .hero-art img,
+.motion-ready .memory-grid img {
+  will-change: transform;
 }
 .motion-ready .film-card {
-  opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(24px) scale(.985);
 }
 .motion-ready .film-card.is-visible {
   opacity: 1;
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .motion-ready [data-motion-reveal],
+  .motion-ready .hero .eyebrow,
+  .motion-ready .hero h1,
+  .motion-ready .hero .hero-copy,
+  .motion-ready .hero .hero-date,
+  .motion-ready .hero .button,
+  .motion-ready .hero-art,
+  .motion-ready main > section,
+  .motion-ready .footer,
   .motion-ready .memory-grid figure,
-  .motion-ready .film-card {
+  .motion-ready .film-card,
+  .motion-ready .little-item,
+  .motion-ready .moment {
     opacity: 1 !important;
     transform: none !important;
   }
