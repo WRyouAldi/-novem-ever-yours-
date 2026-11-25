@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import "./music-player.css";
 
 const SONG_SRC = `${import.meta.env.BASE_URL}assets/audio/our-song.mp3`;
 
