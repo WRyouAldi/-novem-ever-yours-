@@ -85,24 +85,3 @@
   .letter-dialog-footer{align-items:flex-start;flex-direction:column;gap:8px}
 }
 @media(prefers-reduced-motion:reduce){.letter-dialog-backdrop{backdrop-filter:none}}
-
-
-/* Floating official YouTube soundtrack player */
-.music-widget{position:fixed;z-index:35;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));width:min(290px,calc(100vw - 36px));font-family:"DM Sans",sans-serif}
-.music-launcher{width:100%;display:flex;align-items:center;gap:12px;padding:12px 15px;border:1px solid #ead4cc;border-radius:999px;background:rgba(251,243,238,.96);color:#542b35;box-shadow:0 8px 30px #1c10252b;backdrop-filter:blur(14px);text-align:left;cursor:pointer;transition:transform .2s,box-shadow .2s}
-.music-launcher:hover{transform:translateY(-3px);box-shadow:0 12px 32px #1c10253b}
-.music-launcher-icon{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:50%;background:#702b3c;color:#fff0e9;font-size:20px}
-.music-launcher>span:nth-child(2){display:grid;gap:3px;flex:1}
-.music-launcher small,.music-eyebrow{font-size:7px;letter-spacing:.16em;color:#9b7778}
-.music-launcher strong{font:italic 17px var(--serif);font-weight:500}
-.music-launcher-heart{font:24px var(--serif);color:#b66d78}
-.music-panel{overflow:hidden;border:1px solid #ead4cc;border-radius:13px;background:rgba(251,243,238,.98);box-shadow:0 14px 42px #1c102540;backdrop-filter:blur(16px)}
-.music-panel-heading{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 9px}
-.music-panel-heading p{font:italic 18px var(--serif);color:#542b35;margin:3px 0 0}
-.music-panel-heading p span{color:#b66d78}
-.music-close{width:30px;height:30px;border:1px solid #e2c9c0;border-radius:50%;background:#fff9f5;color:#702b3c;font-size:20px;line-height:1;cursor:pointer}
-.music-video{width:100%;aspect-ratio:16/9;min-height:200px;background:#21181b}
-.music-video iframe{display:block;width:100%;height:100%;border:0}
-.music-panel-footer{display:flex;justify-content:space-between;gap:8px;padding:9px 12px 10px;color:#947778;font-size:7px;letter-spacing:.1em}
-@media(max-width:760px){.music-widget{right:12px;bottom:max(12px,env(safe-area-inset-bottom));width:min(270px,calc(100vw - 24px))}.music-launcher{padding:10px 13px}.music-launcher-icon{width:31px;height:31px;flex-basis:31px}.music-panel{border-radius:11px}}
-@media(prefers-reduced-motion:reduce){.music-launcher{transition:none}}
