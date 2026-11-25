@@ -1,42 +1,87 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const VIDEO_ID = "8ftyCahxqNI";
+const SONG_SRC = `${import.meta.env.BASE_URL}assets/audio/our-song.mp3`;
 
 export default function MusicPlayer() {
-  const [open, setOpen] = useState(false);
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    let active = true;
+    audio.play()
+      .then(() => {
+        if (active) {
+          setIsPlaying(true);
+          setAutoplayBlocked(false);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setIsPlaying(false);
+          setAutoplayBlocked(true);
+        }
+      });
+
+    return () => {
+      active = false;
+      audio.pause();
+    };
+  }, []);
+
+  async function togglePlayback() {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (!audio.paused) {
+      audio.pause();
+      setIsPlaying(false);
+      return;
+    }
+
+    try {
+      await audio.play();
+      setIsPlaying(true);
+      setAutoplayBlocked(false);
+    } catch {
+      setIsPlaying(false);
+      setAutoplayBlocked(true);
+    }
+  }
 
   return (
-    <aside className={`music-widget ${open ? "music-widget-open" : ""}`} aria-label="Our song">
-      {open ? (
-        <div className="music-panel">
-          <div className="music-panel-heading">
-            <div>
-              <span className="music-eyebrow">A LITTLE MUSIC FOR US</span>
-              <p>Our song <span aria-hidden="true">♡</span></p>
-            </div>
-            <button className="music-close" type="button" onClick={() => setOpen(false)} aria-label="Tutup pemutar musik">×</button>
-          </div>
-          <div className="music-video">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&playsinline=1&rel=0`}
-              title="Our song — YouTube player"
-              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
-          </div>
-          <div className="music-panel-footer">
-            <span>PLAYING FROM YOUTUBE</span>
-            <span>WITH LOVE, ALWAYS ♡</span>
-          </div>
-        </div>
-      ) : (
-        <button className="music-launcher" type="button" onClick={() => setOpen(true)} aria-label="Putar lagu kita">
-          <span className="music-launcher-icon" aria-hidden="true">♫</span>
-          <span><small>OUR LITTLE SOUNDTRACK</small><strong>Play our song</strong></span>
-          <span className="music-launcher-heart" aria-hidden="true">♡</span>
-        </button>
-      )}
+    <aside className="music-widget" aria-label="Our song">
+      <audio
+        ref={audioRef}
+        src={SONG_SRC}
+        preload="auto"
+        loop
+        playsInline
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onError={() => {
+          setIsPlaying(false);
+          setAutoplayBlocked(true);
+        }}
+      />
+      <button
+        className="music-launcher"
+        type="button"
+        onClick={togglePlayback}
+        aria-label={isPlaying ? "Pause our song" : "Play our song"}
+        aria-pressed={isPlaying}
+      >
+        <span className="music-launcher-icon" aria-hidden="true">{isPlaying ? "Ⅱ" : "♫"}</span>
+        <span>
+          <small>OUR LITTLE SOUNDTRACK</small>
+          <strong>{isPlaying ? "Pause our song" : "Play our song"}</strong>
+          {autoplayBlocked && !isPlaying ? <em className="music-hint">Tap once to start the music</em> : null}
+        </span>
+        <span className="music-launcher-heart" aria-hidden="true">♡</span>
+      </button>
     </aside>
   );
 }
