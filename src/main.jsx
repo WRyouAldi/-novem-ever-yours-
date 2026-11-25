@@ -12,7 +12,7 @@ function MotionExperience() {
     root.classList.add("motion-ready");
     const cleanups = [];
 
-    document.querySelectorAll("[data-motion-reveal]").forEach((element, index) => {
+    document.querySelectorAll("[data-motion-reveal], main > section:not(.hero), .footer").forEach((element, index) => {
       cleanups.push(inView(element, () => {
         element.classList.add("is-visible");
         animate(element, { opacity: [0, 1], y: [22, 0] }, {
