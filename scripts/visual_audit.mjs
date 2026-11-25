@@ -54,12 +54,18 @@ async function audit(name, viewport) {
   if (metrics.galleryCount !== 6) errors.push("Expected six-photo initial gallery preview.");
   await revealEverySection(page);
 
-  if (name === "mobile") {
-    await page.locator(".menu-toggle").waitFor({ state: "visible" });
-    await page.locator(".menu-toggle").click();
-    if (!(await page.getByRole("navigation", { name: "Navigasi utama" }).isVisible())) errors.push("Mobile navigation did not open.");
-  }
+  // Capture the initial page state first: the mobile menu must not obscure the hero photo.
   await page.screenshot({ path: `${output}/${name}.png`, fullPage: true });
+  if (name === "mobile") {
+    const menuButton = page.locator(".menu-toggle");
+    await menuButton.waitFor({ state: "visible" });
+    const nav = page.getByRole("navigation", { name: "Navigasi utama" });
+    if (await nav.isVisible()) errors.push("Mobile navigation must be closed on initial page load.");
+    await menuButton.click();
+    if (!(await nav.isVisible())) errors.push("Mobile navigation did not open.");
+    await menuButton.click();
+    if (await nav.isVisible()) errors.push("Mobile navigation did not close after toggling.");
+  }
   results.push({ name, viewport, metrics, errors });
   await page.close();
 }
