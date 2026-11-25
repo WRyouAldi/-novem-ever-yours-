@@ -7,8 +7,8 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  View,
 } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { WebView } from "react-native-webview";
 import type { WebViewNavigation } from "react-native-webview";
 
@@ -57,7 +57,8 @@ export default function App() {
   };
 
   return (
-    <View style={styles.root}>
+    <SafeAreaProvider>
+      <SafeAreaView edges={["top", "bottom"]} style={styles.root}>
       <StatusBar barStyle="dark-content" backgroundColor="#F7F0EA" />
       <WebView
         ref={webView}
@@ -110,7 +111,8 @@ export default function App() {
           </Pressable>
         </View>
       )}
-    </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
