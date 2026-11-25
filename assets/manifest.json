@@ -2,7 +2,7 @@
   "source_archive": "MyWinter2.zip",
   "totals": {
     "unique_photos": 22,
-    "unique_videos": 12,
+    "unique_videos": 11,
     "exact_duplicate_pairs_removed": 2
   },
   "duplicate_pairs": [
@@ -137,11 +137,6 @@
       "source": "VID-20261008-WA0003(1).mp4",
       "path": "assets/videos/clips/clip-06.mp4",
       "poster": "assets/videos/posters/clip-06.webp"
-    },
-    {
-      "source": "memory_02.mp4",
-      "path": "assets/videos/clips/clip-07.mp4",
-      "poster": "assets/videos/posters/clip-07.webp"
     },
     {
       "source": "memory_04.mp4",
