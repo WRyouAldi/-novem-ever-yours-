@@ -78,6 +78,7 @@ function VideoGallery() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [letterOpen, setLetterOpen] = useState(false);
   useEffect(() => {
     const videos = [...document.querySelectorAll("video")];
     const pauseOthers = (event) => videos.forEach(video => { if (video !== event.target) video.pause(); });
@@ -144,12 +145,36 @@ function App() {
             <p>Terima kasih sudah menjadi bagian dari setiap cerita, setiap tawa, dan setiap langkahku.</p>
             <p>Semoga kita selalu, hari ini, esok, dan selamanya. Semoga setiap musim yang datang selalu menemukan kita saling menggenggam, saling memahami, dan tetap memilih satu sama lain.</p>
             <p className="letter-love">Love you more and more and more...</p>
-            <a className="pill-button letter-button" href="#forever">♡ <span>Read Our Letter</span> <b>→</b></a>
+            <button className="pill-button letter-button" type="button" onClick={() => setLetterOpen(true)} aria-haspopup="dialog">♡ <span>Read Our Letter</span> <b>→</b></button>
           </div>
           <div className="letter-photo"><img src="assets/photos/gallery/photo-21.webp" alt="Salah satu kenangan favorit kita" loading="lazy"/><span className="photo-tape" /></div>
           <span className="letter-doodle">♡</span>
         </div>
       </section>
+
+      <Dialog.Root open={letterOpen} onOpenChange={setLetterOpen}>
+        <Dialog.Portal>
+          <Dialog.Backdrop className="letter-dialog-backdrop" />
+          <Dialog.Popup className="letter-dialog-panel" aria-describedby="full-letter-body">
+            <div className="letter-dialog-top">
+              <span className="letter-dialog-eyebrow">NOVEM-EVER YOURS · A LETTER FROM MY HEART</span>
+              <Dialog.Close className="letter-dialog-close" aria-label="Tutup surat">×</Dialog.Close>
+            </div>
+            <div className="letter-dialog-content">
+              <p className="letter-dialog-date">To my favorite person,</p>
+              <Dialog.Title className="letter-dialog-title">Dear Sayang<span>...</span></Dialog.Title>
+              <div id="full-letter-body">
+                <p>From Happy 27 to our first anniversary, ternyata sudah sejauh ini cerita kita berjalan. Rasanya masih banyak hal kecil tentang kita yang ingin kusimpan baik-baik: tawa sederhana, obrolan tanpa rencana, momen-momen yang mungkin terlihat biasa, tapi selalu punya tempat istimewa di hatiku.</p>
+                <p>Terima kasih sudah menjadi bagian dari setiap cerita, setiap tawa, dan setiap langkahku. Terima kasih untuk kehadiranmu, untuk semua cara sederhana yang membuat hari-hariku terasa lebih hangat, dan untuk setiap kesempatan agar kita terus belajar memahami satu sama lain.</p>
+                <p>Aku tidak berharap setiap hari akan selalu sempurna. Akan ada musim yang cerah, juga hari-hari yang terasa lebih berat. Tapi semoga, dalam musim apa pun, kita tetap memilih untuk saling menggenggam, saling mendengarkan, saling menguatkan, dan tumbuh bersama.</p>
+                <p>Semoga perjalanan kita selalu dipenuhi hal-hal baik, keberanian untuk melewati yang sulit, dan alasan-alasan kecil untuk jatuh cinta lagi. Hari ini, esok, dan di setiap musim yang akan datang, aku ingin tetap menemukan kita di sisi yang sama.</p>
+                <p className="letter-dialog-signoff">Love you more and more and more, sayangg. <span>♡</span></p>
+              </div>
+            </div>
+            <div className="letter-dialog-footer"><span>WITH LOVE, IN EVERY SEASON</span><Dialog.Close className="letter-dialog-done">Close this letter <b>♡</b></Dialog.Close></div>
+          </Dialog.Popup>
+        </Dialog.Portal>
+      </Dialog.Root>
 
       <section className="closing-section" id="forever">
         <div className="closing-inner"><span className="closing-heart">♡</span><p>Novem-ever Yours</p><h2>Forever & Always</h2><span className="closing-line">TWO HEARTS. ONE BEAUTIFUL JOURNEY.</span></div>
