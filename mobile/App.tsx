@@ -9,7 +9,8 @@ import {
   Text,
   View,
 } from "react-native";
-import { WebView, WebViewNavigation } from "react-native-webview";
+import { WebView } from "react-native-webview";
+import type { WebViewNavigation } from "react-native-webview";
 
 const WEBSITE_URL = "https://wryoualdi.github.io/-novem-ever-yours-/";
 const WEBSITE_ORIGIN = "https://wryoualdi.github.io";
