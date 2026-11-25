@@ -17,8 +17,8 @@ def main():
         print("FAIL: missing media files:")
         for path in missing: print(" -", path)
         return 1
-    if len(data["photos"]) != 21 or len(videos) != 12:
-        print(f"FAIL: expected 21 gallery photos and 12 videos; found {len(data['photos'])} and {len(videos)}.")
+    if len(data["photos"]) != 21 or len(videos) != 11:
+        print(f"FAIL: expected 21 gallery photos and 11 videos; found {len(data['photos'])} and {len(videos)}.")
         return 1
     source = (ROOT / "src" / "main.jsx").read_text(encoding="utf-8")
     required = ["photo-", "clip-", "Dialog.Root", "Our Journey", "Our Gallery", "Our Video", "Dear Sayang"]
