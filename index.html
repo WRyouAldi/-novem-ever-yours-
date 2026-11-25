@@ -24,7 +24,8 @@
     .letter{display:grid;grid-template-columns:.7fr 1.3fr;gap:8vw}.letter-mark{font:italic clamp(70px,12vw,160px)/.9 var(--serif);color:var(--wine)}.letter-copy{max-width:720px}.letter-copy h2{margin:10px 0 34px}.letter-copy p{font:400 clamp(16px,1.6vw,19px)/2 var(--serif);color:#55595c;margin:0 0 18px}.sign{font:italic 28px var(--serif);color:var(--wine);margin-top:38px}
     .closing{background:var(--wine);color:#f7f1e9;text-align:center;padding-block:150px}.closing .kicker{color:#e8c9c7}.closing h2{font:500 clamp(52px,9vw,112px)/1 var(--serif);letter-spacing:-.05em;margin:26px 0}.closing p{font:italic 20px var(--serif);color:#eadbd7}.footer{padding-block:26px;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
     [data-enter]{animation:enter 1s both cubic-bezier(.2,.7,.2,1)}@keyframes enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}a,.button{transition:transform .2s ease,opacity .2s ease}a:hover{opacity:.72}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 23px;border:1px solid var(--wine);text-decoration:none;color:var(--wine);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-top:30px}.button:hover{transform:translateY(-2px)}.button:active{transform:translateY(1px)}:focus-visible{outline:2px solid var(--wine);outline-offset:4px}
-    @media(max-width:760px){.nav{height:66px}.nav-note{font-size:9px}.hero{min-height:auto;grid-template-columns:1fr;gap:38px;padding-block:70px 65px}.hero h1{font-size:clamp(58px,16vw,90px)}.hero-art{height:68vh;min-height:390px;max-height:590px}.section-head,.letter{grid-template-columns:1fr;gap:25px}.section-head{margin-bottom:42px}.timeline{grid-template-columns:1fr}.moment{min-height:0;padding:22px 0;border-right:0;border-bottom:1px solid var(--line);margin:0}.moment h3{margin:12px 0 6px}.gallery{grid-template-columns:1fr}.gallery-main{height:500px}.gallery-side{grid-template-columns:1fr 1fr;gap:10px}.gallery-side img{height:210px}.little-grid{grid-template-columns:1fr;gap:28px}.letter-mark{font-size:90px}.closing{padding-block:110px}.footer{gap:18px;flex-wrap:wrap}}
+    .memory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}.memory-grid figure{margin:0;overflow:hidden;background:var(--paper-2);aspect-ratio:4/5}.memory-grid figure:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto;min-height:520px}.memory-grid img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.82);transition:transform .7s cubic-bezier(.2,.7,.2,1)}.memory-grid figure:hover img{transform:scale(1.025)}.film-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.film-card{margin:0;min-width:0}.film-card video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#d9dfe0}.film-card figcaption{font:italic 17px var(--serif);color:var(--wine);padding-top:10px}
+    @media(max-width:760px){.nav{height:66px}.nav-note{font-size:9px}.hero{min-height:auto;grid-template-columns:1fr;gap:38px;padding-block:70px 65px}.hero h1{font-size:clamp(58px,16vw,90px)}.hero-art{height:68vh;min-height:390px;max-height:590px}.section-head,.letter{grid-template-columns:1fr;gap:25px}.section-head{margin-bottom:42px}.timeline{grid-template-columns:1fr}.moment{min-height:0;padding:22px 0;border-right:0;border-bottom:1px solid var(--line);margin:0}.moment h3{margin:12px 0 6px}.gallery{grid-template-columns:1fr}.memory-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.memory-grid figure:first-child{min-height:360px}.film-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.gallery-main{height:500px}.gallery-side{grid-template-columns:1fr 1fr;gap:10px}.gallery-side img{height:210px}.little-grid{grid-template-columns:1fr;gap:28px}.letter-mark{font-size:90px}.closing{padding-block:110px}.footer{gap:18px;flex-wrap:wrap}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
   </style>
 </head>
@@ -42,7 +43,7 @@
       </div>
       <div class="hero-art">
         <!-- Ganti assets/photos/cover.jpg dengan foto kalian -->
-        <img src="assets/photos/cover.jpg" alt="Foto kenangan kalian" onerror="this.remove();this.parentElement.insertAdjacentHTML('afterbegin','<div class=&quot;photo-placeholder&quot;>Letakkan foto favorit kalian di<br><strong>assets/photos/cover.jpg</strong></div>')">
+        <img src="assets/photos/cover.webp" alt="Foto kenangan kalian" onerror="this.remove();this.parentElement.insertAdjacentHTML('afterbegin','<div class=&quot;photo-placeholder&quot;>Letakkan foto favorit kalian di<br><strong>assets/photos/cover.jpg</strong></div>')">
         <span class="photo-note">our kind of forever</span>
       </div>
     </section>
@@ -56,12 +57,46 @@
     </div></section>
     <section class="section"><div class="wrap">
       <div class="section-head"><div><div class="kicker">A collection of us</div><h2>Our winter<br>gallery.</h2></div><p class="section-intro">Beberapa potongan waktu yang ingin aa simpan baik-baik. Ganti slot foto ini dengan foto kalian sendiri.</p></div>
-      <div class="gallery">
-        <figure class="gallery-main"><img src="assets/photos/memory-01.jpg" alt="Kenangan pertama" onerror="this.remove();this.parentElement.innerHTML='<div class=&quot;photo-placeholder&quot;>Foto utama · assets/photos/memory-01.jpg</div>'"></figure>
-        <div class="gallery-side">
-          <figure><img src="assets/photos/memory-02.jpg" alt="Kenangan bersama" onerror="this.remove();this.parentElement.innerHTML='<div class=&quot;photo-placeholder&quot;>assets/photos/memory-02.jpg</div>'"></figure>
-          <figure><img src="assets/photos/memory-03.jpg" alt="Momen kecil berdua" onerror="this.remove();this.parentElement.innerHTML='<div class=&quot;photo-placeholder&quot;>assets/photos/memory-03.jpg</div>'"></figure>
-        </div>
+      <div class="memory-grid">
+        <figure class="memory-feature"><img src="assets/photos/gallery/photo-01.webp" alt="Foto kenangan 01" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-01.webp" alt="Foto kenangan 01" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-02.webp" alt="Foto kenangan 02" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-03.webp" alt="Foto kenangan 03" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-04.webp" alt="Foto kenangan 04" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-05.webp" alt="Foto kenangan 05" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-06.webp" alt="Foto kenangan 06" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-07.webp" alt="Foto kenangan 07" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-08.webp" alt="Foto kenangan 08" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-09.webp" alt="Foto kenangan 09" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-10.webp" alt="Foto kenangan 10" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-11.webp" alt="Foto kenangan 11" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-12.webp" alt="Foto kenangan 12" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-13.webp" alt="Foto kenangan 13" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-14.webp" alt="Foto kenangan 14" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-15.webp" alt="Foto kenangan 15" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-16.webp" alt="Foto kenangan 16" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-17.webp" alt="Foto kenangan 17" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-18.webp" alt="Foto kenangan 18" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-19.webp" alt="Foto kenangan 19" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-20.webp" alt="Foto kenangan 20" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/photos/gallery/photo-21.webp" alt="Foto kenangan 21" loading="lazy" decoding="async"></figure>
+      </div>
+    </div></section>
+    <section class="section" id="moving-memories"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">A few seconds, kept forever</div><h2>Moving<br>memories.</h2></div><p class="section-intro">Potongan video dari hari-hari kita. Tekan play saat ingin mengulang momen kecil ini; video tidak diputar otomatis.</p></div>
+      <div class="film-grid">
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-01.webp"><source src="assets/videos/clips/clip-01.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 01</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-02.webp"><source src="assets/videos/clips/clip-02.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 02</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-03.webp"><source src="assets/videos/clips/clip-03.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 03</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-04.webp"><source src="assets/videos/clips/clip-04.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 04</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-05.webp"><source src="assets/videos/clips/clip-05.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 05</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-06.webp"><source src="assets/videos/clips/clip-06.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 06</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-07.webp"><source src="assets/videos/clips/clip-07.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 07</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-08.webp"><source src="assets/videos/clips/clip-08.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 08</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-09.webp"><source src="assets/videos/clips/clip-09.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 09</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-10.webp"><source src="assets/videos/clips/clip-10.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 10</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-11.webp"><source src="assets/videos/clips/clip-11.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 11</figcaption></figure>
+        <figure class="film-card"><video controls playsinline preload="none" poster="assets/videos/posters/clip-12.webp"><source src="assets/videos/clips/clip-12.mp4" type="video/mp4">Browser kamu belum mendukung video.</video><figcaption>Little moving memory 12</figcaption></figure>
       </div>
     </div></section>
     <section class="section little"><div class="wrap">
