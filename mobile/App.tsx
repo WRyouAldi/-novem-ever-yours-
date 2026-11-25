@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   tagline: { color: "#718092", fontSize: 9, letterSpacing: 3, marginTop: 10 },
   spinner: { marginTop: 34 },
   error: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 34,
