@@ -1,42 +1,29 @@
 # Novem-ever Yours
 
-A mobile-first anniversary microsite built with plain HTML and CSS. The repository is intentionally kept **Private**.
+A mobile-first anniversary microsite built with plain HTML, CSS, and native video controls. The repository is intentionally kept **Private**.
 
 ## Project status
-- [x] Static page foundation (index.html)
-- [x] Responsive editorial layout and photo placeholders
-- [x] Asset folders and usage guide
-- [x] GitHub Actions quality check (does not publish the site)
-- [ ] Add the couple's approved photographs
-- [ ] Add optional anniversary video/audio, if wanted
-- [ ] Final visual QA on real Android and desktop browsers
-- [ ] Choose a GitHub-supported publication path when eligible
+- [x] Editorial anniversary page and responsive layout
+- [x] 22-photo gallery references
+- [x] 12 video-player references with poster images
+- [x] Source-to-destination asset manifest
+- [x] GitHub Actions media-path validation (no deployment)
+- [ ] Upload the prepared media bundle into the repository
+- [ ] Final visual QA on Android and desktop
 
-## Preview locally
-Download or clone the repository and open index.html in a browser. No framework, package installation, or build command is required.
+## Media package
+The uploaded `MyWinter2.zip` was inspected and organized into a ready-to-upload bundle. The bundle contains 22 unique WebP photos, 12 unique MP4 clips, and 12 generated WebP video posters. Two exact duplicate pairs were excluded. See `assets/manifest.json` for the source filename mapping.
 
-## Assets
-See assets/photos/README.md for the exact image slots and recommendations.
+**Important:** the binary media bundle is prepared separately and is not yet committed to this repository. Until its `assets/` folder is uploaded, media references in `index.html` will show as missing in the validator. Download and extract the prepared bundle into the repository root, preserving the `assets/` directory structure.
 
-Current image paths expected by index.html:
-- assets/photos/cover.jpg
-- assets/photos/memory-01.jpg
-- assets/photos/memory-02.jpg
-- assets/photos/memory-03.jpg
-
-The page shows a placeholder when an image is not present. The quality-check workflow reports missing photos as warnings; it does not fail the code checks because the personal photos have not been supplied yet.
-
-Optional video guidance is in assets/videos/README.md. No video or audio player is included yet.
+## Local preview
+Open `index.html` in a browser after extracting the media bundle into the project root. No framework, package installation, or build command is required.
 
 ## Quality checks
-Every push and pull request runs a lightweight Python standard-library check through GitHub Actions. It checks that index.html can be parsed, IDs are unique, images have alt text, and local image paths stay inside the repository. Missing personal photos are reported as warnings. This workflow only validates; it does not deploy or publish the website.
+GitHub Actions parses the HTML, checks duplicate IDs, image alt text, and all local image/video/poster paths. Missing media is reported as a warning while the bundle is not yet uploaded. The workflow only validates and does not deploy or publish.
 
-## Privacy and publishing
-This repository must remain **Private**. Do not change its visibility or enable a publication workflow without explicit approval.
-
-Important: GitHub Pages on GitHub Free does not provide public Pages hosting from a private repository. A private repository does not make a published website private, and a public website URL can be opened and reshared by anyone who has it. Do not commit intimate or sensitive media unless you accept that publication exposure.
-
-For now, develop and preview locally. Do not configure a public deployment from this repository under the current GitHub Free/private-repository constraint.
+## Privacy and publication
+This repository must remain **Private**. Do not change its visibility or enable public publication without explicit approval. GitHub Free does not provide public GitHub Pages hosting from a private repository. Do not place sensitive material in a public website: anyone with its URL may access and reshare it.
 
 ## Design direction
-Editorial winter romance: warm ivory, muted winter blue, deep burgundy, serif-led typography, generous whitespace, restrained motion, and photography-first layouts.
+Editorial winter romance: warm ivory, winter blue, deep burgundy, serif-led typography, generous whitespace, photo-led composition, and restrained motion.
