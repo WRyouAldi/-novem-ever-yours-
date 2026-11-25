@@ -16,6 +16,7 @@ function MotionExperience() {
     // A deliberate first impression: the copy and cover enter in sequence.
     const hero = document.querySelector(".hero");
     if (hero) {
+      hero.classList.add("is-visible");
       const intro = [
         [".hero .eyebrow", { opacity: [0, 1], y: [18, 0] }, { duration: 0.7, delay: 0.12, ease }],
         [".hero h1", { opacity: [0, 1], y: [26, 0] }, { duration: 0.95, delay: 0.22, ease }],
