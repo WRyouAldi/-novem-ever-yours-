@@ -50,7 +50,7 @@ async function audit(name, viewport) {
   }));
   if (metrics.documentWidth > metrics.width) errors.push("Horizontal overflow: " + metrics.documentWidth + "px > " + metrics.width + "px");
   if (metrics.brokenImages.length) errors.push("Broken images: " + metrics.brokenImages.join(", "));
-  if (metrics.videoCount !== 12 || metrics.posterCount !== 12) errors.push("Expected 12 video elements and posters.");
+  if (metrics.videoCount !== 11 || metrics.posterCount !== 11) errors.push("Expected 11 video elements and posters.");
   if (metrics.galleryCount !== 6) errors.push("Expected six-photo initial gallery preview.");
   await revealEverySection(page);
 
