@@ -1,0 +1,24 @@
+{
+  "name": "novem-ever-yours-android",
+  "version": "1.0.0",
+  "private": true,
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "postinstall": "node scripts/generate-brand-assets.mjs",
+    "start": "expo start",
+    "android": "expo run:android",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "expo": "~58.0.26",
+    "expo-splash-screen": "~0.31.0",
+    "react": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-webview": "13.16.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.3.0",
+    "sharp": "^0.34.5",
+    "typescript": "~6.0.3"
+  }
+}
