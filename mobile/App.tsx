@@ -7,6 +7,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { WebView } from "react-native-webview";
@@ -64,7 +65,7 @@ export default function App() {
         ref={webView}
         source={{ uri: WEBSITE_URL }}
         style={styles.webview}
-        originWhitelist={["https://*", "http://*", "about:*", "data:*"]}
+        originWhitelist={["https://*", "http://*"]}
         onShouldStartLoadWithRequest={handleExternalNavigation}
         onNavigationStateChange={handleNavigation}
         onLoadStart={() => { setLoading(true); setFailed(false); }}
