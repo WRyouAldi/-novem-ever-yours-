@@ -11,7 +11,8 @@ const results = [];
 // Exercise real scroll reveals before capturing the full-page previews.
 async function revealEverySection(page) {
   const total = await page.evaluate(() => document.documentElement.scrollHeight);
-  for (let y = 0; y < total; y += Math.max(360, Math.floor(innerHeight * 0.72))) {
+  const viewportHeight = page.viewportSize().height;
+  for (let y = 0; y < total; y += Math.max(360, Math.floor(viewportHeight * 0.72))) {
     await page.evaluate(position => window.scrollTo(0, position), y);
     await page.waitForTimeout(180);
   }
