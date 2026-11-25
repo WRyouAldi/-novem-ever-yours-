@@ -1,8 +1,8 @@
-name: Validate anniversary site
+name: Validate and build anniversary site
 
 on:
   push:
-    branches: [main]
+    branches: [main, "motion/editorial-cinematic"]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -11,14 +11,29 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  validate-and-build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm install
+      - name: Build React + Motion site
+        run: npm run build
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Validate static site
+      - name: Validate source media references
         run: python scripts/validate_site.py
+      - name: Verify built assets
+        run: |
+          test -f dist/index.html
+          test -d dist/assets/photos
+          test -d dist/assets/videos/clips
+          test -d dist/assets/videos/posters
