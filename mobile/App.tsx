@@ -88,7 +88,6 @@ export default function App() {
         pullToRefreshEnabled
         applicationNameForUserAgent="Novem-ever-Yours-Android"
         allowsBackForwardNavigationGestures={false}
-        renderLoading={() => null}
       />
 
       {loading && !failed && (
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: "#F7F0EA" },
   webview: { flex: 1, backgroundColor: "#F7F0EA" },
   loading: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#F7F0EA",
