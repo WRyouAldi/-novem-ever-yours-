@@ -29,7 +29,7 @@ The page shows a placeholder when an image is not present. The quality-check wor
 Optional video guidance is in assets/videos/README.md. No video or audio player is included yet.
 
 ## Quality checks
-Every push and pull request runs a lightweight Python standard-library check through GitHub Actions. It checks HTML structure basics, duplicate IDs, image alt text, and local file references. This workflow only validates; it does not deploy or publish the website.
+Every push and pull request runs a lightweight Python standard-library check through GitHub Actions. It checks that index.html can be parsed, IDs are unique, images have alt text, and local image paths stay inside the repository. Missing personal photos are reported as warnings. This workflow only validates; it does not deploy or publish the website.
 
 ## Privacy and publishing
 This repository must remain **Private**. Do not change its visibility or enable a publication workflow without explicit approval.
