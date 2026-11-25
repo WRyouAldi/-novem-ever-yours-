@@ -33,7 +33,7 @@ function SectionHeading({ eyebrow, title, subtitle, light = false }) {
   </Reveal>;
 }
 
-function PhotoGallery({ showAll }) {
+function PhotoGallery() {
   const [active, setActive] = useState(null);
   const close = () => setActive(null);
   useEffect(() => {
@@ -123,7 +123,7 @@ function App() {
       <section className="gallery-section section-paper" id="gallery">
         <div className="content-wrap">
           <SectionHeading eyebrow="MOMENTS THAT MAKE OUR STORY SPECIAL" title="Our Gallery" subtitle="Little moments, endless memories. Every picture holds a piece of my heart." />
-          <PhotoGallery showAll={showAll} />
+          <PhotoGallery />
           <div className="gallery-more"><button className="pill-button" type="button" onClick={() => setShowAll(!showAll)}>{showAll ? "Showing all 21 photos" : "▦  View More Photos"} <b>→</b></button></div>
         </div>
       </section>
