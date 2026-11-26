@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { Dialog } from "@base-ui/react/dialog";
 import "./site.css";
 import MusicPlayer from "./MusicPlayer.jsx";
@@ -79,6 +79,11 @@ function VideoGallery() {
 }
 
 function App() {
+  const heroRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress: heroScrollProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroParallaxY = useTransform(heroScrollProgress, [0, 1], [0, reduceMotion ? 0 : 28]);
+  const petalsParallaxY = useTransform(heroScrollProgress, [0, 1], [0, reduceMotion ? 0 : -12]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [letterOpen, setLetterOpen] = useState(false);
@@ -101,10 +106,10 @@ function App() {
     </header>
 
     <main>
-      <section className="hero" id="home">
-        <div className="hero-image" aria-hidden="true"><img src="assets/photos/cover-fhd.jpg" alt="" fetchPriority="high" /></div>
+      <section className="hero" id="home" ref={heroRef}>
+        <motion.div className="hero-image" aria-hidden="true" style={{ y: heroParallaxY, scale: reduceMotion ? 1 : 1.06 }}><img src="assets/photos/cover-fhd.jpg" alt="" fetchPriority="high" /></motion.div>
         <div className="hero-shade" />
-        <div className="hero-petals" aria-hidden="true"><i>✿</i><i>✧</i><i>✿</i></div>
+        <motion.div className="hero-petals" aria-hidden="true" style={{ y: petalsParallaxY }}><i>✿</i><i>✧</i><i>✿</i></motion.div>
         <div className="hero-content">
           <motion.p className="hero-kicker" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8 }}>FROM HAPPY 27 TO</motion.p>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: .12, ease }}>Our 1st<br/>Anniversary,<br/><em>sayangg.</em></motion.h1>
