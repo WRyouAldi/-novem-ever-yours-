@@ -15,7 +15,7 @@ const splashMark = await sharp(icon).resize(720, 720).png().toBuffer();
 const splashWordmark = await sharp(logo).resize(960, 336).png().toBuffer();
 const visualMark = await sharp(icon).resize(320, 320).png().toBuffer();
 const visualWordmark = await sharp(logo).resize(900, 315).png().toBuffer();
-const tagline = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="120"><text x="600" y="68" text-anchor="middle" fill="#8794A3" font-family="Georgia,serif" font-style="italic" font-size="32">From Happy 27 to our 1st Anniversary</text></svg>`);
+const tagline = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="120"><text x="600" y="68" text-anchor="middle" fill="#8794A3" font-family="Georgia,serif" font-style="italic" font-size="32">D 27  •  DAISY EDITION</text></svg>`);
 const brandVisual = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720"><rect width="1200" height="720" fill="#F7F0EA"/><circle cx="600" cy="360" r="290" fill="none" stroke="#D9C9C2" stroke-width="2"/><path d="M80 90H1120M80 630H1120" stroke="#8794A3" stroke-width="1" opacity=".55"/></svg>`);
 
 await sharp(icon).png().toFile(resolve(out, "icon.png"));
