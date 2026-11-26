@@ -102,7 +102,7 @@ async function auditReducedMotion(browser) {
   await dialog.getByRole("img", { name: "Bunga daisy mekar" }).waitFor({ state: "visible" });
   const motion = await dialog.locator(".daisy-petal").first().evaluate(node => ({
     animationName: getComputedStyle(node).animationName,
-    floatingPetals: getComputedStyle(dialog.querySelector(".daisy-float-petal")).display
+    floatingPetals: getComputedStyle(node.closest(".surprise-panel").querySelector(".daisy-float-petal")).display
   }));
   if (motion.animationName !== "none" || motion.floatingPetals !== "none") {
     throw new Error("Reduced-motion preference did not disable Daisy animations.");
