@@ -29,6 +29,87 @@ async function revealEverySection(page) {
   await page.waitForTimeout(250);
 }
 
+
+async function auditSurprise(page, name) {
+  const launcher = page.getByRole("button", { name: /Unlock a little surprise/ });
+  await launcher.waitFor({ state: "visible" });
+  if (name === "mobile") {
+    const layout = await page.evaluate(() => {
+      const rect = selector => {
+        const r = document.querySelector(selector).getBoundingClientRect();
+        return { left: r.left, right: r.right, top: r.top, bottom: r.bottom };
+      };
+      return { launcher: rect(".surprise-launch"), letter: rect(".hero-button"), scroll: rect(".scroll-cue") };
+    });
+    const overlaps = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+    if (overlaps(layout.launcher, layout.letter)) throw new Error("Mobile surprise launcher overlaps the hero letter CTA.");
+    if (overlaps(layout.launcher, layout.scroll)) throw new Error("Mobile surprise launcher overlaps the scroll cue.");
+  }
+
+  await launcher.click();
+  const dialog = page.locator(".surprise-panel");
+  await dialog.waitFor({ state: "visible" });
+  const assertDescription = async expected => {
+    const id = await dialog.getAttribute("aria-describedby");
+    if (id !== expected || !(await page.locator("#" + id).count())) {
+      throw new Error(`Surprise dialog has a missing or stale description in phase ${expected}.`);
+    }
+  };
+  await assertDescription("surprise-description");
+
+  const wrongNumber = (await dialog.locator(".secret-number-grid button").allTextContents()).map(value => value.trim()).find(value => value !== "27");
+  await dialog.getByRole("button", { name: wrongNumber, exact: true }).click();
+  if (!(await dialog.getByText("Belum tepat, sayang. Coba pilih lagi", { exact: false }).isVisible())) {
+    throw new Error("Wrong secret number did not show retry feedback.");
+  }
+
+  for (const number of [27, 11, 25]) {
+    const choice = dialog.getByRole("button", { name: String(number), exact: true });
+    await choice.focus();
+    await page.keyboard.press("Enter");
+  }
+  const daisy = dialog.getByRole("img", { name: "Bunga daisy mekar" });
+  await daisy.waitFor({ state: "visible" });
+  if (await dialog.locator(".daisy-float-petal").count() !== 6) throw new Error("Daisy bloom is missing its six floating petals.");
+  await assertDescription("daisy-description");
+
+  await dialog.getByRole("button", { name: /Buka kartu anniversary/ }).click();
+  await dialog.getByText("Happy 1st", { exact: false }).waitFor({ state: "visible" });
+  await assertDescription("card-description");
+  await dialog.getByRole("button", { name: /Read our letter/ }).click();
+  const letter = page.locator(".letter-dialog-panel");
+  await letter.waitFor({ state: "visible" });
+  await letter.getByRole("button", { name: "Tutup surat" }).click();
+  await letter.waitFor({ state: "hidden" });
+
+  await launcher.click();
+  if (!(await dialog.getByText("NUMBER 1 OF 3", { exact: true }).isVisible())) {
+    throw new Error("Closing the surprise did not reset the secret sequence.");
+  }
+  await dialog.getByRole("button", { name: "Tutup kejutan" }).click();
+  await dialog.waitFor({ state: "hidden" });
+}
+
+async function auditReducedMotion(browser) {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto(baseURL, { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: /Unlock a little surprise/ }).click();
+  const dialog = page.locator(".surprise-panel");
+  for (const number of [27, 11, 25]) {
+    await dialog.getByRole("button", { name: String(number), exact: true }).click();
+  }
+  await dialog.getByRole("img", { name: "Bunga daisy mekar" }).waitFor({ state: "visible" });
+  const motion = await dialog.locator(".daisy-petal").first().evaluate(node => ({
+    animationName: getComputedStyle(node).animationName,
+    floatingPetals: getComputedStyle(node.closest(".surprise-panel").querySelector(".daisy-float-petal")).display
+  }));
+  if (motion.animationName !== "none" || motion.floatingPetals !== "none") {
+    throw new Error("Reduced-motion preference did not disable Daisy animations.");
+  }
+  await page.close();
+}
+
 async function audit(name, viewport) {
   const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
   const errors = [];
@@ -56,6 +137,7 @@ async function audit(name, viewport) {
 
   // Capture the initial page state first: the mobile menu must not obscure the hero photo.
   await page.screenshot({ path: `${output}/${name}.png`, fullPage: true });
+  await auditSurprise(page, name);
   if (name === "mobile") {
     const menuButton = page.locator(".menu-toggle");
     await menuButton.waitFor({ state: "visible" });
@@ -73,6 +155,7 @@ async function audit(name, viewport) {
 try {
   await audit("desktop", { width: 1440, height: 1000 });
   await audit("mobile", { width: 390, height: 844 });
+  await auditReducedMotion(browser);
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   await page.goto(baseURL, { waitUntil: "networkidle" });
   await page.getByRole("button", { name: /View More Photos/ }).click();
