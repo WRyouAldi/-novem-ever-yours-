@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Dialog } from "@base-ui/react/dialog";
 import "./site.css";
+import "./animation-enhancements.css";
 import MusicPlayer from "./MusicPlayer.jsx";
 
 const photos = Array.from({ length: 21 }, (_, i) => ({
