@@ -101,7 +101,7 @@ function App() {
 
     <main>
       <section className="hero" id="home">
-        <div className="hero-image" aria-hidden="true"><img src="assets/photos/cover.webp" alt="" fetchPriority="high" /></div>
+        <div className="hero-image" aria-hidden="true"><img src="assets/photos/cover-fhd.jpg" alt="" fetchPriority="high" /></div>
         <div className="hero-shade" />
         <div className="hero-petals" aria-hidden="true"><i>✿</i><i>✧</i><i>✿</i></div>
         <div className="hero-content">
