@@ -60,57 +60,58 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView edges={["top", "bottom"]} style={styles.root}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F7F0EA" />
-      <WebView
-        ref={webView}
-        source={{ uri: WEBSITE_URL }}
-        style={styles.webview}
-        originWhitelist={["https://*", "http://*"]}
-        onShouldStartLoadWithRequest={handleExternalNavigation}
-        onNavigationStateChange={handleNavigation}
-        onLoadStart={() => { setLoading(true); setFailed(false); }}
-        onLoadEnd={() => setLoading(false)}
-        onError={() => { setLoading(false); setFailed(true); }}
-        onHttpError={(event) => {
-          if (event.nativeEvent.statusCode >= 500) {
-            setLoading(false);
-            setFailed(true);
-          }
-        }}
-        javaScriptEnabled
-        domStorageEnabled
-        sharedCookiesEnabled
-        cacheEnabled
-        allowsInlineMediaPlayback
-        mediaPlaybackRequiresUserAction
-        mixedContentMode="never"
-        setSupportMultipleWindows={false}
-        pullToRefreshEnabled
-        applicationNameForUserAgent="Novem-ever-Yours-Android"
-        allowsBackForwardNavigationGestures={false}
-      />
+        <StatusBar barStyle="dark-content" backgroundColor="#F7F0EA" />
+        <WebView
+          ref={webView}
+          source={{ uri: WEBSITE_URL }}
+          style={styles.webview}
+          originWhitelist={["https://*", "http://*"]}
+          onShouldStartLoadWithRequest={handleExternalNavigation}
+          onNavigationStateChange={handleNavigation}
+          onLoadStart={() => { setLoading(true); setFailed(false); }}
+          onLoadEnd={() => setLoading(false)}
+          onError={() => { setLoading(false); setFailed(true); }}
+          onHttpError={(event) => {
+            if (event.nativeEvent.statusCode >= 500) {
+              setLoading(false);
+              setFailed(true);
+            }
+          }}
+          javaScriptEnabled
+          domStorageEnabled
+          sharedCookiesEnabled
+          cacheEnabled
+          allowsInlineMediaPlayback
+          mediaPlaybackRequiresUserAction
+          mixedContentMode="never"
+          setSupportMultipleWindows={false}
+          pullToRefreshEnabled
+          applicationNameForUserAgent="Novem-ever-Yours-Android"
+          allowsBackForwardNavigationGestures={false}
+        />
 
-      {loading && !failed && (
-        <View pointerEvents="none" style={styles.loading}>
-          <Text style={styles.monogram}>N</Text>
-          <Text style={styles.brand}>Novem-ever Yours</Text>
-          <Text style={styles.tagline}>WITH LOVE, IN EVERY SEASON</Text>
-          <ActivityIndicator color="#7A3345" style={styles.spinner} />
-        </View>
-      )}
+        {loading && !failed && (
+          <View pointerEvents="none" style={styles.loading}>
+            <Text style={styles.flower}>✿</Text>
+            <Text style={styles.monogram}>D 27</Text>
+            <Text style={styles.brand}>Novem-ever Yours</Text>
+            <Text style={styles.tagline}>WITH LOVE, IN EVERY SEASON</Text>
+            <ActivityIndicator color="#7A3345" style={styles.spinner} />
+          </View>
+        )}
 
-      {failed && (
-        <View style={styles.error}>
-          <Text style={styles.errorMark}>♡</Text>
-          <Text style={styles.errorTitle}>A little pause between seasons</Text>
-          <Text style={styles.errorCopy}>
-            Website belum dapat dijangkau. Periksa koneksi internet, lalu coba lagi.
-          </Text>
-          <Pressable accessibilityRole="button" onPress={retry} style={({ pressed }) => [styles.retry, pressed && styles.pressed]}>
-            <Text style={styles.retryText}>Try again</Text>
-          </Pressable>
-        </View>
-      )}
+        {failed && (
+          <View style={styles.error}>
+            <Text style={styles.errorMark}>✿</Text>
+            <Text style={styles.errorTitle}>A little pause between seasons</Text>
+            <Text style={styles.errorCopy}>
+              Website belum dapat dijangkau. Periksa koneksi internet, lalu coba lagi.
+            </Text>
+            <Pressable accessibilityRole="button" onPress={retry} style={({ pressed }) => [styles.retry, pressed && styles.pressed]}>
+              <Text style={styles.retryText}>Try again</Text>
+            </Pressable>
+          </View>
+        )}
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -125,7 +126,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#F7F0EA",
   },
-  monogram: { color: "#713044", fontFamily: "serif", fontSize: 76, lineHeight: 86 },
+  flower: { color: "#D7A83D", fontSize: 40, marginBottom: 4 },
+  monogram: { color: "#713044", fontFamily: "serif", fontSize: 66, lineHeight: 78, letterSpacing: 2 },
   brand: { color: "#713044", fontFamily: "serif", fontSize: 23, fontStyle: "italic", marginTop: 12 },
   tagline: { color: "#718092", fontSize: 9, letterSpacing: 3, marginTop: 10 },
   spinner: { marginTop: 34 },
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 34,
     backgroundColor: "#F7F0EA",
   },
-  errorMark: { color: "#A85D6C", fontSize: 54 },
+  errorMark: { color: "#D7A83D", fontSize: 54 },
   errorTitle: { color: "#713044", fontFamily: "serif", fontSize: 25, textAlign: "center", marginTop: 18 },
   errorCopy: { color: "#687586", fontSize: 14, lineHeight: 22, textAlign: "center", marginTop: 12 },
   retry: { backgroundColor: "#713044", borderRadius: 24, paddingHorizontal: 28, paddingVertical: 13, marginTop: 26 },
