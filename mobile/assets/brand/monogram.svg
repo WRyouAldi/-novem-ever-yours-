@@ -1,12 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
-<defs><linearGradient id="paper" x2="1" y2="1"><stop stop-color="#FFFAF5"/><stop offset="1" stop-color="#F0E4DE"/></linearGradient><linearGradient id="wine" x2="0" y2="1"><stop stop-color="#8D4354"/><stop offset="1" stop-color="#632638"/></linearGradient></defs>
-<rect width="1024" height="1024" rx="210" fill="url(#paper)"/>
-<circle cx="512" cy="512" r="420" fill="none" stroke="#7D8B9A" stroke-width="9"/>
-<circle cx="512" cy="512" r="398" fill="none" stroke="#D8C9C2" stroke-width="2"/>
-<text x="512" y="715" text-anchor="middle" font-family="Georgia,serif" font-size="650" font-style="italic" fill="url(#wine)">N</text>
-<g fill="none" stroke="#7D8B9A" stroke-width="9" stroke-linecap="round"><path d="M260 700 Q340 600 405 630 Q450 650 482 600"/><path d="M270 710 Q210 635 220 570"/><path d="M300 675 Q260 625 275 575"/></g>
-<g fill="#A65A68"><path d="M275 570c-46-55-4-105 37-87 37-50 95-10 66 31 40 41-7 89-49 62-30 35-72 26-54-6z"/><circle cx="327" cy="558" r="16" fill="#E9C4B9"/></g>
-<g fill="#FDFBF7" stroke="#B9A8A1" stroke-width="3"><circle cx="235" cy="475" r="18"/><circle cx="256" cy="458" r="15"/><circle cx="274" cy="480" r="18"/><circle cx="249" cy="496" r="16"/></g>
-<g fill="#718092"><path d="M310 480q-55-70-93-18 48 4 93 18z"/><path d="M354 450q-3-72 54-78-13 46-54 78z"/><path d="M382 660q-20 72-76 55 33-35 76-55z"/></g>
-<g stroke="#713044" stroke-width="9" stroke-linecap="round"><path d="M760 270v110M705 325h110M722 287l76 76M798 287l-76 76"/></g><path d="M825 430l12 24 25 12-25 12-12 25-12-25-25-12 25-12z" fill="#713044"/>
+<defs>
+  <linearGradient id="paper" x2="1" y2="1"><stop stop-color="#FFFCF6"/><stop offset="1" stop-color="#F1E8D9"/></linearGradient>
+  <linearGradient id="wine" x2="0" y2="1"><stop stop-color="#874052"/><stop offset="1" stop-color="#59283A"/></linearGradient>
+  <filter id="soft"><feGaussianBlur stdDeviation="2"/></filter>
+</defs>
+<rect width="1024" height="1024" rx="220" fill="url(#paper)"/>
+<circle cx="512" cy="512" r="424" fill="none" stroke="#A6A88B" stroke-width="7"/>
+<circle cx="512" cy="512" r="402" fill="none" stroke="#D9C7B7" stroke-width="2"/>
+<path d="M330 260 C560 210 720 355 720 520 C720 685 575 795 330 764 Z" fill="none" stroke="url(#wine)" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M390 315 C550 285 655 385 655 520 C655 650 550 720 390 708 Z" fill="none" stroke="#A65A68" stroke-width="3" opacity=".55"/>
+<text x="512" y="625" text-anchor="middle" font-family="Georgia,serif" font-size="176" letter-spacing="5" fill="#713044">27</text>
+<path d="M240 760 C320 700 365 660 395 590" fill="none" stroke="#71805D" stroke-width="10" stroke-linecap="round"/>
+<path d="M278 738 C220 690 205 645 214 610 C260 624 290 664 278 738Z" fill="#8C9B72"/>
+<path d="M330 690 C330 630 355 590 397 574 C397 623 372 667 330 690Z" fill="#A3AA7B"/>
+<g transform="translate(260 300)">
+  <g fill="#FFFDF6" stroke="#D7C8B5" stroke-width="4">
+    <ellipse cx="0" cy="-65" rx="25" ry="48"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(45)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(90)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(135)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(180)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(225)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(270)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(315)"/>
+  </g><circle r="30" fill="#E7B94F" stroke="#C99535" stroke-width="5"/><circle r="10" fill="#F8D77B" filter="url(#soft)"/>
+</g>
+<g transform="translate(765 720) scale(.62)">
+  <g fill="#FFFDF6" stroke="#D7C8B5" stroke-width="4">
+    <ellipse cx="0" cy="-65" rx="25" ry="48"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(45)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(90)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(135)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(180)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(225)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(270)"/><ellipse cx="0" cy="-65" rx="25" ry="48" transform="rotate(315)"/>
+  </g><circle r="30" fill="#E7B94F" stroke="#C99535" stroke-width="5"/>
+</g>
+<g fill="#71805D"><path d="M715 330q-20-80 48-104 0 65-48 104z"/><path d="M760 385q60-70 105-30-40 50-105 30z"/></g>
+<text x="512" y="900" text-anchor="middle" fill="#718092" font-family="Arial,sans-serif" font-size="26" letter-spacing="9">DAISY • ALWAYS</text>
 </svg>
