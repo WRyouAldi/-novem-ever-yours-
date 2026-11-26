@@ -19,9 +19,9 @@ const videos = videoIds.map((id, index) => ({
 }));
 const ease = [0.22, 1, 0.36, 1];
 
-function Reveal({ children, className = "", delay = 0, ...props }) {
+function Reveal({ children, className = "", delay = 0, once = true, ...props }) {
   const reduce = useReducedMotion();
-  return <motion.div className={className} initial={reduce ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.16 }} transition={{ duration: reduce ? 0 : 0.78, delay, ease }} {...props}>{children}</motion.div>;
+  return <motion.div className={className} initial={reduce ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once, amount: 0.16 }} transition={{ duration: reduce ? 0 : 0.78, delay, ease }} {...props}>{children}</motion.div>;
 }
 
 function Brand({ light = false }) {
@@ -125,8 +125,8 @@ function App() {
         <div className="content-wrap">
           <SectionHeading eyebrow="A BEAUTIFUL STORY, FROM 27 TO FOREVER" title="Our Journey" subtitle="A beautiful story of us, from 27 to forever." />
           <div className="timeline">
-            <motion.span className="timeline-progress" aria-hidden="true" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true, amount: 0.55 }} transition={{ duration: 3.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} />
-            <motion.span className="timeline-runner" aria-hidden="true" initial={{ left: "8%", opacity: 0 }} whileInView={{ left: "92%", opacity: [0, 1, 1, 0] }} viewport={{ once: true, amount: 0.55 }} transition={{ duration: 3.2, delay: 0.2, ease: "linear" }} />
+            <motion.span className="timeline-progress" aria-hidden="true" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: false, amount: 0.55 }} transition={{ duration: 3.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} />
+            <motion.span className="timeline-runner" aria-hidden="true" initial={{ left: "8%", opacity: 0 }} whileInView={{ left: "92%", opacity: [0, 1, 1, 0] }} viewport={{ once: false, amount: 0.55 }} transition={{ duration: 3.2, delay: 0.2, ease: "linear" }} />
             {[["♡","27","Happy"],["♡","Together","Always"],["♡","1st","Anniversary"],["♡","Forever","Yours"]].map(([symbol, top, bottom], i) => <Reveal className="timeline-item" key={top} delay={i * .12}><span className="timeline-heart">{symbol}</span><span className="timeline-dot"/><strong>{top}</strong><small>{bottom}</small></Reveal>)}
           </div>
         </div>
