@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import * as SplashScreen from "expo-splash-screen";
 import { WebView } from "react-native-webview";
 import type { WebViewNavigation } from "react-native-webview";
 
@@ -29,6 +30,12 @@ export default function App() {
     }
     return false;
   }, [canGoBack, failed]);
+
+  useEffect(() => {
+    // Explicitly dismiss the native Expo splash as soon as the React app mounts.
+    // The in-app loading and retry states then take over while the website loads.
+    SplashScreen.hideAsync().catch(() => undefined);
+  }, []);
 
   useEffect(() => {
     const subscription = BackHandler.addEventListener("hardwareBackPress", handleBack);
