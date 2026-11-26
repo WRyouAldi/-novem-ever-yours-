@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Dialog } from "@base-ui/react/dialog";
 import "./site.css";
 import MusicPlayer from "./MusicPlayer.jsx";
+import SecretAnniversarySurprise from "./SecretAnniversarySurprise.jsx";
 
 const photos = Array.from({ length: 21 }, (_, i) => ({
   src: `assets/photos/gallery/photo-${String(i + 1).padStart(2, "0")}.webp`,
@@ -111,6 +112,7 @@ function App() {
           <motion.a className="pill-button hero-button" href="#letter" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .75 }}>✉ <span>Open Our Letter</span> <b>→</b></motion.a>
         </div>
         <a className="scroll-cue" href="#story"><span className="scroll-mouse">↓</span><small>SCROLL TO OUR STORY</small></a>
+        <div className="hero-surprise-entry"><SecretAnniversarySurprise onReadLetter={() => setLetterOpen(true)} /></div>
         <div className="hero-bottom-wave" />
       </section>
 
