@@ -120,7 +120,9 @@ function App() {
         <div className="content-wrap">
           <SectionHeading eyebrow="A BEAUTIFUL STORY, FROM 27 TO FOREVER" title="Our Journey" subtitle="A beautiful story of us, from 27 to forever." />
           <div className="timeline">
-            {[["♡","27","Happy"],["♡","Together","Always"],["♡","1st","Anniversary"],["♡","Forever","Yours"]].map(([symbol, top, bottom], i) => <Reveal className="timeline-item" key={top} delay={i * .1}><span className="timeline-heart">{symbol}</span><span className="timeline-dot"/><strong>{top}</strong><small>{bottom}</small></Reveal>)}
+            <motion.span className="timeline-progress" aria-hidden="true" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true, amount: 0.55 }} transition={{ duration: 3.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} />
+            <motion.span className="timeline-runner" aria-hidden="true" initial={{ left: "8%", opacity: 0 }} whileInView={{ left: "92%", opacity: [0, 1, 1, 0] }} viewport={{ once: true, amount: 0.55 }} transition={{ duration: 3.2, delay: 0.2, ease: "linear" }} />
+            {[["♡","27","Happy"],["♡","Together","Always"],["♡","1st","Anniversary"],["♡","Forever","Yours"]].map(([symbol, top, bottom], i) => <Reveal className="timeline-item" key={top} delay={i * .12}><span className="timeline-heart">{symbol}</span><span className="timeline-dot"/><strong>{top}</strong><small>{bottom}</small></Reveal>)}
           </div>
         </div>
       </section>
