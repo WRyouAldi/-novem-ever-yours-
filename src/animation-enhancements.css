@@ -1,0 +1,61 @@
+/* Focused motion polish. No media assets, music logic, or video markup are changed. */
+@keyframes timeline-heart-arrive {
+  0% { transform: scale(.72); }
+  65% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+@keyframes letter-photo-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -7px; }
+}
+@keyframes letter-dialog-enter {
+  from { opacity: 0; transform: translateY(18px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes letter-backdrop-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* A restrained arrival accent complements the existing scroll reveals. */
+.timeline-item .timeline-heart {
+  animation: timeline-heart-arrive .58s cubic-bezier(.22, 1, .36, 1) both;
+  animation-delay: .18s;
+}
+.timeline-item:nth-child(2) .timeline-heart { animation-delay: .28s; }
+.timeline-item:nth-child(3) .timeline-heart { animation-delay: .38s; }
+.timeline-item:nth-child(4) .timeline-heart { animation-delay: .48s; }
+
+/* The keepsake photo gets a slow, independent float without replacing its rotation. */
+.letter-photo {
+  animation: letter-photo-float 7s ease-in-out infinite;
+  will-change: translate;
+}
+
+/* Dialog entrance is short and opacity/transform based. */
+.letter-dialog-panel {
+  animation: letter-dialog-enter .38s cubic-bezier(.22, 1, .36, 1) both;
+}
+.letter-dialog-backdrop {
+  animation: letter-backdrop-enter .24s ease-out both;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .timeline-item .timeline-heart {
+    transition: box-shadow .25s ease, background-color .25s ease;
+  }
+  .timeline-item:hover .timeline-heart {
+    box-shadow: 0 0 0 5px #e8b1b133;
+    background-color: #efc1bf;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-item .timeline-heart,
+  .letter-photo,
+  .letter-dialog-panel,
+  .letter-dialog-backdrop {
+    animation: none !important;
+    will-change: auto;
+  }
+}
