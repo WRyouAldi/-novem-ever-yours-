@@ -13,22 +13,35 @@ export default function MusicPlayer() {
     if (!audio) return;
 
     let active = true;
-    audio.play()
-      .then(() => {
-        if (active) {
-          setIsPlaying(true);
-          setAutoplayBlocked(false);
-        }
-      })
-      .catch(() => {
-        if (active) {
-          setIsPlaying(false);
-          setAutoplayBlocked(true);
-        }
-      });
+    const tryAutoplay = () => {
+      if (!active || !audio.paused) return;
+      audio.play()
+        .then(() => {
+          if (active) {
+            setIsPlaying(true);
+            setAutoplayBlocked(false);
+          }
+        })
+        .catch(() => {
+          if (active) {
+            setIsPlaying(false);
+            setAutoplayBlocked(true);
+          }
+        });
+    };
+
+    // Attempt immediately; browsers may require a visitor gesture for audible playback.
+    tryAutoplay();
+    const interactionEvents = ["pointerdown", "touchstart", "keydown"];
+    interactionEvents.forEach((eventName) => {
+      document.addEventListener(eventName, tryAutoplay, { once: true, capture: true });
+    });
 
     return () => {
       active = false;
+      interactionEvents.forEach((eventName) => {
+        document.removeEventListener(eventName, tryAutoplay, true);
+      });
       audio.pause();
     };
   }, []);
@@ -58,6 +71,7 @@ export default function MusicPlayer() {
       <audio
         ref={audioRef}
         src={SONG_SRC}
+        autoPlay
         preload="auto"
         loop
         playsInline
