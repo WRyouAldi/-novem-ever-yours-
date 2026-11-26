@@ -26,7 +26,7 @@ export default function SecretAnniversarySurprise({ onReadLetter }) {
     setWrong(false);
     if (step === 2) setPhase("daisy"); else setStep((current) => current + 1);
   };
-  const openLetter = () => { setOpen(false); onReadLetter?.(); };
+  const openLetter = () => { setOpen(false); reset(); onReadLetter?.(); };
   return <>
     <button className="surprise-launch" type="button" aria-haspopup="dialog" onClick={() => setOpen(true)}><span aria-hidden="true">✿</span> Unlock a little surprise <b>↗</b></button>
     <Dialog.Root open={open} onOpenChange={(next) => { setOpen(next); if (!next) reset(); }}>
