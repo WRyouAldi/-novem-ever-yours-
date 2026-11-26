@@ -12,6 +12,7 @@ const makeOptions = () => SECRET.map((answer) => {
 function DaisyBloom({ reduced }) {
   return <div className={"daisy-bloom" + (reduced ? " daisy-static" : "")} aria-label="Bunga daisy mekar" role="img">
     {Array.from({ length: 12 }, (_, index) => <span className="daisy-petal" key={index} style={{ "--petal": index }} />)}
+    {Array.from({ length: 6 }, (_, index) => <span className="daisy-float-petal" key={index} style={{ "--float": index }} />)}
     <span className="daisy-center" /><span className="daisy-stem" /><span className="daisy-leaf daisy-leaf-left" /><span className="daisy-leaf daisy-leaf-right" />
   </div>;
 }
@@ -27,10 +28,10 @@ export default function SecretAnniversarySurprise({ onReadLetter }) {
   };
   const openLetter = () => { setOpen(false); onReadLetter?.(); };
   return <>
-    <button className="surprise-launch" type="button" onClick={() => setOpen(true)}><span aria-hidden="true">✿</span> Unlock a little surprise <b>↗</b></button>
+    <button className="surprise-launch" type="button" aria-haspopup="dialog" onClick={() => setOpen(true)}><span aria-hidden="true">✿</span> Unlock a little surprise <b>↗</b></button>
     <Dialog.Root open={open} onOpenChange={(next) => { setOpen(next); if (!next) reset(); }}>
       <Dialog.Portal><Dialog.Backdrop className="surprise-backdrop" />
-        <Dialog.Popup className="surprise-panel" aria-describedby="surprise-description">
+        <Dialog.Popup className="surprise-panel" aria-describedby={phase === "numbers" ? "surprise-description" : phase === "daisy" ? "daisy-description" : "card-description"}>
           <div className="surprise-topline"><span>JUST FOR US</span><Dialog.Close className="surprise-close" aria-label="Tutup kejutan">×</Dialog.Close></div>
           <AnimatePresence mode="wait">
             {phase === "numbers" && <motion.section key="numbers" className="surprise-stage" initial={reduced ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={reduced ? {} : { opacity: 0, y: -8 }} transition={{ duration: .28 }}>
@@ -44,13 +45,13 @@ export default function SecretAnniversarySurprise({ onReadLetter }) {
             {phase === "daisy" && <motion.section key="daisy" className="surprise-stage daisy-stage" initial={reduced ? false : { opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .65 }}>
               <p className="surprise-eyebrow">YOU FOUND OUR LITTLE SECRET</p><DaisyBloom reduced={reduced} />
               <Dialog.Title className="surprise-title">For my daisy<span> ♡</span></Dialog.Title>
-              <p className="surprise-description">Tiga angka sederhana, satu cerita yang selalu ingin kujaga.</p>
+              <p id="daisy-description" className="surprise-description">Tiga angka sederhana, satu cerita yang selalu ingin kujaga.</p>
               <button className="surprise-primary" type="button" onClick={() => setPhase("card")}>Buka kartu anniversary <b>→</b></button>
             </motion.section>}
             {phase === "card" && <motion.section key="card" className="surprise-stage card-stage" initial={reduced ? false : { opacity: 0, y: 18, rotateX: -7 }} animate={{ opacity: 1, y: 0, rotateX: 0 }} transition={{ duration: .7 }}>
               <div className="anniversary-card"><span className="card-flower">✿</span><p className="card-kicker">27 · 11 · 25</p>
                 <Dialog.Title className="card-title">Happy 1st<br/><em>Anniversary</em></Dialog.Title><span className="card-divider">♡</span>
-                <p className="card-message">To my favorite person, thank you for making ordinary days feel like the sweetest memories. Semoga kita selalu saling memilih, dalam setiap musim dan cerita yang akan datang.</p>
+                <p id="card-description" className="card-message">To my favorite person, thank you for making ordinary days feel like the sweetest memories. Semoga kita selalu saling memilih, dalam setiap musim dan cerita yang akan datang.</p>
                 <p className="card-signoff">Novem-ever yours, sayangg.</p><span className="card-footer">FOREVER & ALWAYS</span>
               </div><button className="surprise-primary card-letter-button" type="button" onClick={openLetter}>Read our letter <b>→</b></button>
             </motion.section>}
