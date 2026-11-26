@@ -85,3 +85,13 @@
   .letter-dialog-footer{align-items:flex-start;flex-direction:column;gap:8px}
 }
 @media(prefers-reduced-motion:reduce){.letter-dialog-backdrop{backdrop-filter:none}}
+
+/* Our Journey: a connected, scroll-triggered timeline animation. */
+.timeline:before{background:#e4c4bf}
+.timeline-progress{position:absolute;z-index:0;top:18px;left:8%;right:8%;height:1px;background:linear-gradient(90deg,#b86f7d,#d89da1 55%,#a86c7b);transform-origin:left center;pointer-events:none}
+.timeline-runner{position:absolute;z-index:2;top:14px;width:9px;height:9px;border-radius:50%;background:#fff8f2;border:1px solid #b86f7d;box-shadow:0 0 0 3px #d9a4a344,0 0 13px #b86f7d99;transform:translateX(-50%);pointer-events:none}
+.timeline-item{z-index:3}
+.timeline-heart{box-shadow:0 0 0 0 #d99da200;transition:box-shadow .35s ease,background-color .35s ease}
+.timeline-item:hover .timeline-heart{box-shadow:0 0 0 5px #d99da233;background:#efc1bf}
+@media(max-width:760px){.timeline-progress{top:15px}.timeline-runner{top:11px}}
+@media(prefers-reduced-motion:reduce){.timeline-progress{transform:scaleX(1)!important}.timeline-runner{display:none}.timeline-heart{transition:none}}
