@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useAnimationControls, useInView, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { Dialog } from "@base-ui/react/dialog";
 import "./site.css";
 import MusicPlayer from "./MusicPlayer.jsx";
@@ -21,7 +21,40 @@ const ease = [0.22, 1, 0.36, 1];
 
 function Reveal({ children, className = "", delay = 0, once = true, ...props }) {
   const reduce = useReducedMotion();
-  return <motion.div className={className} initial={reduce ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once, amount: 0.16 }} transition={{ duration: reduce ? 0 : 0.78, delay, ease }} {...props}>{children}</motion.div>;
+  const ref = useRef(null);
+  const inView = useInView(ref, { once, amount: 0.16 });
+  const controls = useAnimationControls();
+  useEffect(() => {
+    if (reduce) controls.set({ opacity: 1, y: 0 });
+    else if (inView) controls.start({ opacity: 1, y: 0, transition: { duration: 0.78, delay, ease } });
+    else if (!once) controls.set({ opacity: 0, y: 28 });
+  }, [controls, delay, inView, once, reduce]);
+  return <motion.div ref={ref} className={className} initial={reduce ? false : { opacity: 0, y: 28 }} animate={controls} {...props}>{children}</motion.div>;
+}
+
+function JourneyTimeline() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: false, amount: 0.55 });
+  const reduce = useReducedMotion();
+  const progress = useAnimationControls();
+  const runner = useAnimationControls();
+  useEffect(() => {
+    if (reduce) {
+      progress.set({ scaleX: 1 });
+      runner.set({ left: "8%", opacity: 0 });
+    } else if (inView) {
+      progress.start({ scaleX: 1, transition: { duration: 3.2, delay: 0.2, ease } });
+      runner.start({ left: "92%", opacity: [0, 1, 1, 0], transition: { duration: 3.2, delay: 0.2, ease: "linear" } });
+    } else {
+      progress.set({ scaleX: 0 });
+      runner.set({ left: "8%", opacity: 0 });
+    }
+  }, [inView, progress, reduce, runner]);
+  return <div className="timeline" ref={ref}>
+    <motion.span className="timeline-progress" aria-hidden="true" initial={{ scaleX: 0 }} animate={progress} />
+    <motion.span className="timeline-runner" aria-hidden="true" initial={{ left: "8%", opacity: 0 }} animate={runner} />
+    {[["♡","27","Happy"],["♡","Together","Always"],["♡","1st","Anniversary"],["♡","Forever","Yours"]].map(([symbol, top, bottom], i) => <Reveal className="timeline-item" key={top} delay={i * .12} once={false}><span className="timeline-heart">{symbol}</span><span className="timeline-dot"/><strong>{top}</strong><small>{bottom}</small></Reveal>)}
+  </div>;
 }
 
 function Brand({ light = false }) {
@@ -124,11 +157,7 @@ function App() {
       <section className="journey section-paper" id="story">
         <div className="content-wrap">
           <SectionHeading eyebrow="A BEAUTIFUL STORY, FROM 27 TO FOREVER" title="Our Journey" subtitle="A beautiful story of us, from 27 to forever." />
-          <div className="timeline">
-            <motion.span className="timeline-progress" aria-hidden="true" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: false, amount: 0.55 }} transition={{ duration: 3.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} />
-            <motion.span className="timeline-runner" aria-hidden="true" initial={{ left: "8%", opacity: 0 }} whileInView={{ left: "92%", opacity: [0, 1, 1, 0] }} viewport={{ once: false, amount: 0.55 }} transition={{ duration: 3.2, delay: 0.2, ease: "linear" }} />
-            {[["♡","27","Happy"],["♡","Together","Always"],["♡","1st","Anniversary"],["♡","Forever","Yours"]].map(([symbol, top, bottom], i) => <Reveal className="timeline-item" key={top} delay={i * .12}><span className="timeline-heart">{symbol}</span><span className="timeline-dot"/><strong>{top}</strong><small>{bottom}</small></Reveal>)}
-          </div>
+          <JourneyTimeline />
         </div>
       </section>
 
