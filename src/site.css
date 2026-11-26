@@ -95,3 +95,10 @@
 .timeline-item:hover .timeline-heart{box-shadow:0 0 0 5px #d99da233;background:#efc1bf}
 @media(max-width:760px){.timeline-progress{top:15px}.timeline-runner{top:11px}}
 @media(prefers-reduced-motion:reduce){.timeline-progress{transform:scaleX(1)!important}.timeline-runner{display:none}.timeline-heart{transition:none}}
+
+
+/* Gentle hero parallax layers; clipped to the hero to prevent page overflow. */
+.hero{overflow:hidden}
+.hero-image{will-change:transform;transform-origin:center center}
+.hero-petals{will-change:transform}
+@media(prefers-reduced-motion:reduce){.hero-image,.hero-petals{will-change:auto}}
