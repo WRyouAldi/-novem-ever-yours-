@@ -60,7 +60,9 @@ async function auditSurprise(page, name) {
   await letter.waitFor({ state: "visible" });
   await letter.getByRole("button", { name: "Tutup surat" }).click();
   await letter.waitFor({ state: "hidden" });
-  await dialog.getByRole("button", { name: "Tutup kejutan" }).click();
+  const closeSurprise = dialog.locator(".surprise-close");
+  await closeSurprise.waitFor({ state: "visible" });
+  await closeSurprise.click();
   await dialog.waitFor({ state: "hidden" });
   await page.waitForTimeout(2200);
   if (await dialog.isVisible()) throw new Error("Surprise popup reopened after dismissal during the same visit.");
