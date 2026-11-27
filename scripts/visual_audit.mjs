@@ -87,7 +87,12 @@ async function audit(name, viewport) {
   const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
   const errors = [];
   page.on("pageerror", error => errors.push(error.message));
-  await page.goto(baseURL, { waitUntil: "networkidle" });
+  // Start the timing assertion at DOMContentLoaded, not after networkidle:
+  // waiting for network idle can itself exceed the popup's 2-second delay.
+  await page.goto(baseURL, { waitUntil: "domcontentloaded" });
+  const dialog = page.locator(".surprise-panel");
+  await dialog.waitFor({ state: "attached" });
+  if (await dialog.isVisible()) errors.push("Surprise popup was visible immediately after initial DOM load.");
   await page.evaluate(async () => {
     document.querySelectorAll("img").forEach(img => { img.loading = "eager"; });
     await Promise.all([...document.images].map(img => img.decode().catch(() => null)));
@@ -106,9 +111,7 @@ async function audit(name, viewport) {
   if (metrics.brokenImages.length) errors.push("Broken images: " + metrics.brokenImages.join(", "));
   if (metrics.videoCount !== 11 || metrics.posterCount !== 11) errors.push("Expected 11 video elements and posters.");
   if (metrics.galleryCount !== 6) errors.push("Expected six-photo initial gallery preview.");
-  // Verify the delayed dialog before scrolling so the initial-load behavior is tested.
-  const dialog = page.locator(".surprise-panel");
-  if (await dialog.isVisible()) errors.push("Surprise popup appeared before the configured 2-second delay.");
+  // Verify that the initially hidden dialog becomes visible after its 2-second timer.
   await dialog.waitFor({ state: "visible", timeout: 5000 });
   await dialog.getByRole("button", { name: "Tutup kejutan" }).click();
   await dialog.waitFor({ state: "hidden" });
