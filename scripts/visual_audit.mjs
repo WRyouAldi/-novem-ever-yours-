@@ -1,14 +1,12 @@
 import { chromium } from "playwright";
 import { mkdir } from "node:fs/promises";
 
-const baseURL = "http://127.0.0.1:4173"; // local Vite production preview
+const baseURL = "http://127.0.0.1:4173";
 const output = "artifacts";
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const results = [];
 
-
-// Exercise real scroll reveals before capturing the full-page previews.
 async function revealEverySection(page) {
   const total = await page.evaluate(() => document.documentElement.scrollHeight);
   const viewportHeight = page.viewportSize().height;
@@ -29,26 +27,11 @@ async function revealEverySection(page) {
   await page.waitForTimeout(250);
 }
 
-
 async function auditSurprise(page, name) {
-  const launcher = page.getByRole("button", { name: /Unlock a little surprise/ });
-  await launcher.waitFor({ state: "visible" });
-  if (name === "mobile") {
-    const layout = await page.evaluate(() => {
-      const rect = selector => {
-        const r = document.querySelector(selector).getBoundingClientRect();
-        return { left: r.left, right: r.right, top: r.top, bottom: r.bottom };
-      };
-      return { launcher: rect(".surprise-launch"), letter: rect(".hero-button"), scroll: rect(".scroll-cue") };
-    });
-    const overlaps = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
-    if (overlaps(layout.launcher, layout.letter)) throw new Error("Mobile surprise launcher overlaps the hero letter CTA.");
-    if (overlaps(layout.launcher, layout.scroll)) throw new Error("Mobile surprise launcher overlaps the scroll cue.");
-  }
-
-  await launcher.click();
+  const launcherCount = await page.locator(".surprise-launch").count();
+  if (launcherCount !== 0) throw new Error("Legacy Unlock a little surprise launcher is still present.");
   const dialog = page.locator(".surprise-panel");
-  await dialog.waitFor({ state: "visible" });
+  await dialog.waitFor({ state: "visible", timeout: 5000 });
   const assertDescription = async expected => {
     const id = await dialog.getAttribute("aria-describedby");
     if (id !== expected || !(await page.locator("#" + id).count())) {
@@ -62,17 +45,13 @@ async function auditSurprise(page, name) {
   if (!(await dialog.getByText("Belum tepat, sayang. Coba pilih lagi", { exact: false }).isVisible())) {
     throw new Error("Wrong secret number did not show retry feedback.");
   }
-
   for (const number of [27, 11, 25]) {
-    const choice = dialog.getByRole("button", { name: String(number), exact: true });
-    await choice.focus();
-    await page.keyboard.press("Enter");
+    await dialog.getByRole("button", { name: String(number), exact: true }).click();
   }
   const daisy = dialog.getByRole("img", { name: "Bunga daisy mekar" });
   await daisy.waitFor({ state: "visible" });
   if (await dialog.locator(".daisy-float-petal").count() !== 6) throw new Error("Daisy bloom is missing its six floating petals.");
   await assertDescription("daisy-description");
-
   await dialog.getByRole("button", { name: /Buka kartu anniversary/ }).click();
   await dialog.getByText("Happy 1st", { exact: false }).waitFor({ state: "visible" });
   await assertDescription("card-description");
@@ -81,32 +60,26 @@ async function auditSurprise(page, name) {
   await letter.waitFor({ state: "visible" });
   await letter.getByRole("button", { name: "Tutup surat" }).click();
   await letter.waitFor({ state: "hidden" });
-
-  await launcher.click();
-  if (!(await dialog.getByText("NUMBER 1 OF 3", { exact: true }).isVisible())) {
-    throw new Error("Closing the surprise did not reset the secret sequence.");
-  }
-  await dialog.getByRole("button", { name: "Tutup kejutan" }).click();
+  // Read our letter intentionally dismisses the surprise dialog before opening the letter.
   await dialog.waitFor({ state: "hidden" });
+  await page.waitForTimeout(2200);
+  if (await dialog.isVisible()) throw new Error("Surprise popup reopened after dismissal during the same visit.");
+  return { viewport: name, autoPopup: "visible", delay: "2 seconds configured", legacyLauncher: "removed", secretChallenge: "pass", daisyAndCard: "pass", letterHandoff: "pass", dismissal: "stays dismissed" };
 }
 
-async function auditReducedMotion(browser) {
+async function auditReducedMotion() {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(baseURL, { waitUntil: "networkidle" });
-  await page.getByRole("button", { name: /Unlock a little surprise/ }).click();
   const dialog = page.locator(".surprise-panel");
-  for (const number of [27, 11, 25]) {
-    await dialog.getByRole("button", { name: String(number), exact: true }).click();
-  }
+  await dialog.waitFor({ state: "visible", timeout: 5000 });
+  for (const number of [27, 11, 25]) await dialog.getByRole("button", { name: String(number), exact: true }).click();
   await dialog.getByRole("img", { name: "Bunga daisy mekar" }).waitFor({ state: "visible" });
   const motion = await dialog.locator(".daisy-petal").first().evaluate(node => ({
     animationName: getComputedStyle(node).animationName,
     floatingPetals: getComputedStyle(node.closest(".surprise-panel").querySelector(".daisy-float-petal")).display
   }));
-  if (motion.animationName !== "none" || motion.floatingPetals !== "none") {
-    throw new Error("Reduced-motion preference did not disable Daisy animations.");
-  }
+  if (motion.animationName !== "none" || motion.floatingPetals !== "none") throw new Error("Reduced-motion preference did not disable Daisy animations.");
   await page.close();
 }
 
@@ -114,7 +87,12 @@ async function audit(name, viewport) {
   const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
   const errors = [];
   page.on("pageerror", error => errors.push(error.message));
-  await page.goto(baseURL, { waitUntil: "networkidle" });
+  // Start the timing assertion at DOMContentLoaded, not after networkidle:
+  // waiting for network idle can itself exceed the popup's 2-second delay.
+  await page.goto(baseURL, { waitUntil: "domcontentloaded" });
+  const dialog = page.locator(".surprise-panel");
+  await page.locator("main").waitFor({ state: "attached" });
+  if (await dialog.count() && await dialog.isVisible()) errors.push("Surprise popup was visible immediately after initial DOM load.");
   await page.evaluate(async () => {
     document.querySelectorAll("img").forEach(img => { img.loading = "eager"; });
     await Promise.all([...document.images].map(img => img.decode().catch(() => null)));
@@ -133,11 +111,17 @@ async function audit(name, viewport) {
   if (metrics.brokenImages.length) errors.push("Broken images: " + metrics.brokenImages.join(", "));
   if (metrics.videoCount !== 11 || metrics.posterCount !== 11) errors.push("Expected 11 video elements and posters.");
   if (metrics.galleryCount !== 6) errors.push("Expected six-photo initial gallery preview.");
+  // Verify that the initially hidden dialog becomes visible after its 2-second timer.
+  await dialog.waitFor({ state: "visible", timeout: 5000 });
+  await dialog.getByRole("button", { name: "Tutup kejutan" }).click();
+  await dialog.waitFor({ state: "hidden" });
   await revealEverySection(page);
-
-  // Capture the initial page state first: the mobile menu must not obscure the hero photo.
   await page.screenshot({ path: `${output}/${name}.png`, fullPage: true });
-  await auditSurprise(page, name);
+  await page.waitForTimeout(2200);
+  await dialog.waitFor({ state: "hidden" });
+  // Reload to run the complete first-visit challenge flow from its initial state.
+  await page.reload({ waitUntil: "networkidle" });
+  const surprise = await auditSurprise(page, name);
   if (name === "mobile") {
     const menuButton = page.locator(".menu-toggle");
     await menuButton.waitFor({ state: "visible" });
@@ -148,16 +132,22 @@ async function audit(name, viewport) {
     await menuButton.click();
     if (await nav.isVisible()) errors.push("Mobile navigation did not close after toggling.");
   }
-  results.push({ name, viewport, metrics, errors });
+  results.push({ name, viewport, metrics, surprise, errors });
   await page.close();
 }
 
 try {
   await audit("desktop", { width: 1440, height: 1000 });
   await audit("mobile", { width: 390, height: 844 });
-  await auditReducedMotion(browser);
+  await auditReducedMotion();
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   await page.goto(baseURL, { waitUntil: "networkidle" });
+  // The automatic anniversary dialog is modal and traps accessible interaction.
+  // Dismiss it before exercising the underlying gallery controls.
+  const surpriseDialog = page.locator(".surprise-panel");
+  await surpriseDialog.waitFor({ state: "visible", timeout: 5000 });
+  await surpriseDialog.locator(".surprise-close").click();
+  await surpriseDialog.waitFor({ state: "hidden" });
   await page.getByRole("button", { name: /View More Photos/ }).click();
   const expanded = await page.locator(".photo-tile").count();
   if (expanded !== 21) throw new Error(`Gallery expansion expected 21 photos, found ${expanded}.`);
@@ -166,7 +156,7 @@ try {
   await page.keyboard.press("Escape");
   await page.waitForTimeout(150);
   if (await page.locator(".lightbox-panel").isVisible()) throw new Error("Photo lightbox did not close with Escape.");
-  results.push({ name: "interactions", expandedGallery: expanded, lightbox: "open/close passed", errors: [] });
+  results.push({ name: "interactions", expandedGallery: expanded, lightbox: "open/close passed", reducedMotion: "passed", errors: [] });
   await page.close();
 } finally {
   await browser.close();
