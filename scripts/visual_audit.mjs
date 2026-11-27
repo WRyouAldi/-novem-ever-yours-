@@ -142,6 +142,12 @@ try {
   await auditReducedMotion();
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   await page.goto(baseURL, { waitUntil: "networkidle" });
+  // The automatic anniversary dialog is modal and traps accessible interaction.
+  // Dismiss it before exercising the underlying gallery controls.
+  const surpriseDialog = page.locator(".surprise-panel");
+  await surpriseDialog.waitFor({ state: "visible", timeout: 5000 });
+  await surpriseDialog.locator(".surprise-close").click();
+  await surpriseDialog.waitFor({ state: "hidden" });
   await page.getByRole("button", { name: /View More Photos/ }).click();
   const expanded = await page.locator(".photo-tile").count();
   if (expanded !== 21) throw new Error(`Gallery expansion expected 21 photos, found ${expanded}.`);
