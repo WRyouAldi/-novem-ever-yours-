@@ -91,8 +91,8 @@ async function audit(name, viewport) {
   // waiting for network idle can itself exceed the popup's 2-second delay.
   await page.goto(baseURL, { waitUntil: "domcontentloaded" });
   const dialog = page.locator(".surprise-panel");
-  await dialog.waitFor({ state: "attached" });
-  if (await dialog.isVisible()) errors.push("Surprise popup was visible immediately after initial DOM load.");
+  await page.locator("main").waitFor({ state: "attached" });
+  if (await dialog.count() && await dialog.isVisible()) errors.push("Surprise popup was visible immediately after initial DOM load.");
   await page.evaluate(async () => {
     document.querySelectorAll("img").forEach(img => { img.loading = "eager"; });
     await Promise.all([...document.images].map(img => img.decode().catch(() => null)));
